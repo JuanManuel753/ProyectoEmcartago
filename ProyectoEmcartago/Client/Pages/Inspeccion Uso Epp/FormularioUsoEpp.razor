@@ -1,0 +1,416 @@
+﻿<EditForm Model="funcionario" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div style="display:flex; justify-content:center;">
+        <MudPaper Elevation="0" Class="py-8 px-10" Style="width:1096px;" >
+            <MudText Typo="Typo.h6">Datos Del Funcionario</MudText>
+            <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">    
+                <div style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudTextField  AutoFocus="true" Margin="Margin.Dense" Variant="Variant.Outlined" id="Nombre" T="string" @bind-Value="funcionario.Nombre" For="@(() => funcionario.Nombre)" Label="Nombre Del Funcionario" Adornment="Adornment.End" AdornmentIcon="@Icons.TwoTone.PersonOutline" AdornmentColor="Color.Primary"/>
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >   
+                <MudTextField Margin="Margin.Dense" Variant="Variant.Outlined" id="Cargo" @bind-Value="funcionario.Cargo" T="string" Label="Cargo Del Funcionario"  For="@(() => funcionario.Cargo)"   Adornment="Adornment.End" AdornmentIcon="@Icons.TwoTone.Work" AdornmentColor="Color.Primary"/>
+                </div>
+                <div style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" > 
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Responsable_Inspeccion" For="(() => funcionario.Responsable_Inspeccion)" T="string" Label="Responsable de Inspeccion" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Luis Alfredo Bolívar González")" />
+                    <MudSelectItem Value="@("Luis Fernando Uchima Agudelo")" />
+                    <MudSelectItem Value="@("Julian Sanchez Arias")" />
+                </MudSelect>
+                </div>
+            </div>
+            @*elementros proteccion*@
+            <MudText  Typo="Typo.h6">Elementos De Proteccion</MudText>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;"> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px; " >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Casco_De_Seguridad" For="(() => funcionario.Casco_De_Seguridad)" T="string" Label="Casco De Seguridad" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Casco De Seguridad" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Casco_De_Seguridad" For="@(() => funcionario.Observacion_Casco_De_Seguridad)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Guantes_Tipo_Ingeniero" For="(() => funcionario.Guantes_Tipo_Ingeniero)" T="string" Label="Guantes Tipo Ingeniero" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                    </MudSelect>
+                    <MudTextField   T="string" Label="Observacion Guantes Tipo Ingeniero" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Guantes_Tipo_Ingeniero" For="@(() => funcionario.Observacion_Guantes_Tipo_Ingeniero)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Guantes_De_Caucho" For="(() => funcionario.Guantes_De_Caucho)" T="string" Label="Guantes De Caucho" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField   T="string" Label="Observacion Guantes De Caucho" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Guantes_De_Caucho" For="@(() => funcionario.Observacion_Guantes_De_Caucho)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Guantes_Carnaza" For="(() => funcionario.Guantes_Carnaza)" T="string" Label="Guantes De Carnaza" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Guantes Carnaza" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Guantes_Carnaza" For="@(() => funcionario.Observacion_Guantes_Carnaza)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Gafas_De_Seguridad" For="(() => funcionario.Gafas_De_Seguridad)" T="string" Label="Gafas De Seguridad" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Gafas De Seguridad" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Gafas_De_Seguridad" For="@(() => funcionario.Observacion_Gafas_De_Seguridad)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Gafas_De_Seguridad_lente_Oscuro" For="(() => funcionario.Gafas_De_Seguridad_lente_Oscuro)" T="string" Label="Gafas De Seguridad Lente Oscuro" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Gafas De Lente Oscuro" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Gafas_De_Seguridad_lente_Oscuro" For="@(() => funcionario.Observacion_Gafas_De_Seguridad_lente_Oscuro)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Careta_De_Seguridad" For="(() => funcionario.Careta_De_Seguridad)" T="string" Label="Careta De Seguridad" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Careta De Seguridad" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Careta_De_Seguridad" For="@(() => funcionario.Observacion_Careta_De_Seguridad)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Mascarilla_Con_Filtros" For="(() => funcionario.Mascarilla_Con_Filtros)" T="string" Label="Mascarilla Con Filtros" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Mascarilla Con Filtros" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Mascarilla_Con_Filtros" For="@(() => funcionario.Observacion_Mascarilla_Con_Filtros)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Tapa_Bocas" For="(() => funcionario.Tapa_Bocas)" T="string" Label="TapaBocas" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Tapa Bocas" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Tapa_Bocas" For="@(() => funcionario.Observacion_Careta_De_Seguridad)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Protector_Auditivo_Insercion" For="(() => funcionario.Protector_Auditivo_Insercion)" T="string" Label="Protector Auditivo Insercion" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Protector Auditivo Insercion" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Protector_Auditivo_Insercion" For="@(() => funcionario.Observacion_Protector_Auditivo_Insercion)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Protector_Auditivo_De_Copa" For="(() => funcionario.Protector_Auditivo_De_Copa)" T="string" Label="Protector Auditivo De Copa" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                 <MudTextField T="string" Label="Observacion Protector Auditivo De Copa" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Protector_Auditivo_De_Copa" For="@(() => funcionario.Observacion_Protector_Auditivo_Insercion)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Chaleco_Reflectivo" For="(() => funcionario.Chaleco_Reflectivo)" T="string" Label="Chaleco Reflectivo" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Chaleco Reflectivo" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Chaleco_Reflectivo" For="@(() => funcionario.Observacion_Chaleco_Reflectivo)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Impermeable" For="(() => funcionario.Impermeable)" T="string" Label="Impermeable" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Impermeable" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Impermeable" For="@(() => funcionario.Observacion_Impermeable)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Otros" T="string" Label="Otros" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Otros" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Otros" For="@(() => funcionario.Observacion_Otros)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                @if (funcionario.Otros == "Cumple")
+                {
+                    <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px; margin-top:30px;" >
+                        <MudTextField T="string" Label="Otro Elemento De Proteccion" Variant="Variant.Filled"  Lines="1" @bind-Value="funcionario.Otro_Elemento" For="@(() => funcionario.Otro_Elemento)" Margin="Margin.Dense" Adornment="Adornment.End" AdornmentIcon="@Icons.TwoTone.Build" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                    </div>
+                }
+            </div>
+        @*Dotacion*@
+            <MudText  Typo="Typo.h6">Dotacion</MudText>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;  "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Pantalon_Reflectivo" For="(() => funcionario.Pantalon_Reflectivo)" T="string" Label="Pantalon Reflectivo" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Pantalon Reflectivo" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Pantalon_Reflectivo" For="@(() => funcionario.Observacion_Pantalon_Reflectivo)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Camisa_Con_Reflectivo" For="(() => funcionario.Camisa_Con_Reflectivo)" T="string" Label="Camisa Con Reflectivo" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Camisa Con Reflectivo" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Camisa_Con_Reflectivo" For="@(() => funcionario.Observacion_Camisa_Con_Reflectivo)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Botas_De_Seguridad_Con_Puntera" For="(() => funcionario.Botas_De_Seguridad_Con_Puntera)" T="string" Label="Botas De Seguridad Con Puntera" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Botas Con Puntera" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Botas_De_Seguridad_Con_Puntera" For="@(() => funcionario.Observacion_Botas_De_Seguridad_Con_Puntera)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Botas_De_Caucho_Con_Puntera" For="(() => funcionario.Botas_De_Caucho_Con_Puntera)" T="string" Label="Botas De Caucho Con Puntera" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField  T="string" Label="Observacion Botas Caucho Con Puntera" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Botas_De_Caucho_Con_Puntera" For="@(() => funcionario.Observacion_Botas_De_Caucho_Con_Puntera)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Botas_De_Seguridad_Sin_Puntera" For="(() => funcionario.Botas_De_Seguridad_Sin_Puntera)" T="string" Label="Botas De Seguridad Sin Puntera" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Botas Sin Puntera" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Botas_De_Seguridad_Sin_Puntera" For="@(() => funcionario.Observacion_Botas_De_Seguridad_Sin_Puntera)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Gorra" For="(() => funcionario.Gorra)" T="string" Label="Gorra" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Gorra" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Gorra" For="@(() => funcionario.Observacion_Gorra)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+
+            @*Contratistas*@
+            <MudText  Typo="Typo.h6">Contratista</MudText>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Seguridad_Social" For="(() => funcionario.Seguridad_Social)" T="string" Label="Seguridad Social" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Seguridad Social" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Seguridad_Social" For="@(() => funcionario.Observacion_Seguridad_Social)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Dotacion_Contratista_Con_Reflectivo_Marcada_Como_Contratista" For="(() => funcionario.Dotacion_Contratista_Con_Reflectivo_Marcada_Como_Contratista)" T="string" Label="Dotacion Contratista Con Reflectivo" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Dotacion Contratista" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Dotacion_Contratista_Con_Reflectivo_Marcada_Como_Contratista" For="@(() => funcionario.Observacion_Dotacion_Contratista_Con_Reflectivo_Marcada_Como_Contratista)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Carnet_De_Contratista" For="(() => funcionario.Carnet_De_Contratista)" T="string" Label="Carnet De Contratista" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Carnet Contratista" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Carnet_De_Contratista" For="@(() => funcionario.Observacion_Carnet_De_Contratista)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Epps_De_Acuerdo_A_La_Actividad" For="(() => funcionario.Epps_De_Acuerdo_A_La_Actividad)" T="string" Label="Epps De Acuerdo A La Actividad" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Epps De Acuerdo" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Epps_De_Acuerdo_A_La_Actividad" For="@(() => funcionario.Observacion_Epps_De_Acuerdo_A_La_Actividad)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Trabajo_En_Alturas" For="(() => funcionario.Trabajo_En_Alturas)" T="string" Label="Trabajo En Alturas" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Trabajo En Alturas" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Trabajo_En_Alturas" For="@(() => funcionario.Observacion_Trabajo_En_Alturas)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                @if (funcionario.Trabajo_En_Alturas == "Cumple")
+                {
+                    <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px; margin-top:30px;" >
+                    <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Curso_Trabajo_En_Alturas" T="string" Label="Curso De Trabajo En Alturas" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                        <MudSelectItem Value="@("Administrativo")" />
+                        <MudSelectItem Value="@("Coordinador")" />
+                        <MudSelectItem Value="@("Avanzado")" />
+                        <MudSelectItem Value="@("Reentrenamiento")" />
+                    </MudSelect>
+                    </div>  
+                }
+            </div>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Disposicion_De_Los_Epps" For="(() => funcionario.Disposicion_De_Los_Epps)" T="string" Label="Disposicion De Los Epps" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Disposicion De Epps" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Disposicion_De_Los_Epps" For="@(() => funcionario.Observacion_Disposicion_De_Los_Epps)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                @if(funcionario.Disposicion_De_Los_Epps == "Cumple")
+                {
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px; margin-top:30px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Opcion_Disposicion_De_Los_Epps" T="string" Label="Disposicion De Los Epps" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Proteccion Contra Caidas")" />
+                    <MudSelectItem Value="@("Sistemas De Acceso")" />
+                    <MudSelectItem Value="@("Rescate")" />
+                    <MudSelectItem Value="@("AutoRescate")" />
+                </MudSelect>
+                </div>
+                }
+            </div>
+
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect Margin="Margin.Dense" AdornmentColor="Color.Primary" @bind-Value="funcionario.Sitio_Coordinador_Para_Trabajo_En_Alturas" For="(() => funcionario.Sitio_Coordinador_Para_Trabajo_En_Alturas)" T="string" Label="Coordinador Para Trabajo En Alturas" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Coordinador Trabajo Alturas" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Sitio_Coordinador_Para_Trabajo_En_Alturas" For="@(() => funcionario.Observacion_Sitio_Coordinador_Para_Trabajo_En_Alturas)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+                @if (funcionario.Sitio_Coordinador_Para_Trabajo_En_Alturas == "Cumple")
+                {
+                    <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px; margin-top:30px;" >
+                        <MudTextField T="string" Label="Nombre Del Coordinador Trabajo Alturas" Variant="Variant.Filled" Lines="1" @bind-Value="funcionario.Nombre_Coordinador_En_Alturas" For="@(() => funcionario.Nombre_Coordinador_En_Alturas)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                    </div>
+                } 
+            </div>
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px; "> 
+                <div class="form-group" style="flex-direction:column; flex-wrap:wrap; width:300px; margin-right:20px;" >
+                <MudSelect AdornmentColor="Color.Primary" Margin="Margin.Dense" @bind-Value="funcionario.Actividad_Mayor_O_Igual_A_15_Dias" For="(() => funcionario.Actividad_Mayor_O_Igual_A_15_Dias)" T="string" Label="Actividad Mayor O Igual A 15 Dias" Variant="Variant.Outlined" Style="margin-bottom:5px;">
+                    <MudSelectItem Value="@("Cumple")" />
+                    <MudSelectItem Value="@("No Cumple")" />
+                    <MudSelectItem Value="@("No Aplica")" />
+                </MudSelect>
+                <MudTextField T="string" Label="Observacion Actividad Mayor o igual a 15 Dias" Variant="Variant.Filled"  Lines="2" @bind-Value="funcionario.Observacion_Actividad_Mayor_O_Igual_A_15_Dias" For="@(() => funcionario.Observacion_Actividad_Mayor_O_Igual_A_15_Dias)" Margin="Margin.Dense" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.RemoveRedEye" AdornmentColor="Color.Primary" HelperText="Opcional"/>
+                </div>
+            </div>
+            <MudButton Style="color:white; margin-right:20px;"  Disabled="@_processing" ButtonType="ButtonType.Submit"  Variant="Variant.Filled" Color="Color.Success" EndIcon="@Icons.Material.TwoTone.Save">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true"/>
+                <MudText Class="ms-2">Guardando</MudText>
+            }
+            else
+            {
+                <MudText>Salvar</MudText>
+            }
+            </MudButton>
+
+            @*seleccionador de imagenes*@
+            <MudFab HtmlTag="label" Style="color:white;" Color="Color.Info" Icon="@Icons.Filled.Image" Label="Cargar Imagen" for="images" />
+            
+            @*borrado solo aparece cuando esta editando*@
+            @if (funcionario.Id != 0)
+            {
+            <MudRadioGroup @bind-SelectedOption="@funcionario.IsDelete">
+                    <MudRadio Option="false" Color="Color.Success">Guardado</MudRadio>
+                    <MudRadio Option="true" Color="Color.Error">Eliminar</MudRadio>
+            </MudRadioGroup>
+            }
+            @*alerta de eliminar*@
+            @if(funcionario.IsDelete == true)
+            {
+                <MudAlert Icon="@Icons.TwoTone.WarningAmber" Severity="Severity.Error" Dense="true" Style="width:500px;" Class="my-2">Eliminar Seleccionado, Si actualiza El Funcionario sera eliminado</MudAlert>     
+            }
+            <div class="form-group" style="display:flex; flex-wrap:wrap; flex-direction:row; margin-top:30px;" >
+                @if(!string.IsNullOrEmpty(funcionario.ImageUrl)){
+                    <img src="@funcionario.ImageUrl" />
+                }
+                else
+                {
+                    foreach (var image in funcionario.Imagenes_UsoEpp)
+                    {
+                        <MudCard Class="ma-2" Elevation="0">
+                            <MudCardContent>
+                            <MudImage Src="@image.Imagen" />
+                            </MudCardContent>
+                            <MudCardActions Style="margin-bottom:10px; justify-content:center;">
+                            <MudIconButton  Icon="@Icons.TwoTone.Delete" Color="Color.Error"  OnClick="@(() => EliminarImage(image.Id))">Remover</MudIconButton>
+                            </MudCardActions>
+                        </MudCard>
+                    }
+                }
+                <InputFile id="images" OnChange="OnFileChange" hidden multiple accept=".jpg,.jpeg,.png" class="form-control"></InputFile>
+            </div>
+        </MudPaper>
+    </div>
+</EditForm>
+
+
+
+@code {
+    [Parameter] public int? Id { get; set; }
+    [Parameter] public InspeccionUsoEpp funcionario { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    private bool _processing = false;
+
+
+    async Task OnFileChange(InputFileChangeEventArgs e)
+    {
+        var format = "image/png";
+        foreach (var image in e.GetMultipleFiles(int.MaxValue))
+        {
+            var ReducirImage = await image.RequestImageFileAsync(format, 200, 200);
+            var buffer = new byte[ReducirImage.Size];
+            await ReducirImage.OpenReadStream().ReadAsync(buffer);
+            var imageData = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+
+
+            funcionario.Imagenes_UsoEpp.Add(new Imagen_UsoEpp { Imagen = imageData });
+        }
+    }
+    void EliminarImage(int id)
+    {
+        var image = funcionario.Imagenes_UsoEpp.FirstOrDefault(i => i.Id == id);
+        if (image != null)
+        {
+            funcionario.Imagenes_UsoEpp.Remove(image);
+        }
+    }
+
+    MudMessageBox mbox { get; set; }
+    private async void MensajeBox()
+    {
+        bool? result = await mbox.Show();
+        StateHasChanged();
+    }
+}

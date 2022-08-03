@@ -1,0 +1,27 @@
+﻿@page "/formatodesolicituddepermiso/crear"
+@inject IRepositorioPermisos repositorio
+@inject IMostrarMensajes mostrarMensajes
+@inject NavigationManager navigationManager
+
+<PageTitle>Crear Solicitud De Permiso</PageTitle>  
+<MudText Typo="Typo.h3" Style="display:flex; justify-content:center;">Creacion De Formato Solicitud De Permiso</MudText>
+<FormularioFSDP  OnValidSubmit="Crear" Funcionarios="Funcionarios" />
+
+@code {
+    private FormatoPermisos Funcionarios = new FormatoPermisos();
+
+
+    async Task Crear()
+    {
+        var httpResponse = await repositorio.Post("api/fsdp", Funcionarios);
+        if (httpResponse.Error)
+        {
+            await mostrarMensajes.MostrarMensajeError("Solicitud de permiso Erronea");
+        }
+        else
+        {
+            await mostrarMensajes.MostrarMensajeExitoso("Solicitud de permiso Creada");
+            navigationManager.NavigateTo("/formatodesolicituddepermiso/crear", true);
+        }
+    }
+}

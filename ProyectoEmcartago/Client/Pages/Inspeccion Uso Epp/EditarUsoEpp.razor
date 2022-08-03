@@ -1,0 +1,48 @@
+﻿@page "/usoepp/editar/{Id:int}"
+@inject IRepositorioUsoEpp repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensaje
+
+<PageTitle>Editar Funcionario: @Funcionarios.Nombre</PageTitle>  
+<MudText Typo="Typo.h6" Style="display:flex; justify-content:center;">Inspeccion Uso Epp De: @Funcionarios.Nombre</MudText>
+@if (Funcionarios == null)
+{
+    <MudProgressLinear Color="Color.Info" Indeterminate="true" Class="my-7" />
+}
+else
+{
+    <FormularioUsoEpp OnValidSubmit="Editar" funcionario="Funcionarios"  />
+
+}
+
+
+@code {
+    [Parameter] public int Id { get; set; }
+    InspeccionUsoEpp Funcionarios = new InspeccionUsoEpp();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var httpResponse = await repositorio.Get<InspeccionUsoEpp>($"api/usoepp/{Id}");
+
+        if (httpResponse.Error)
+        {
+            if (httpResponse.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/indiceusoepp");
+            }
+            else
+            {
+                await mostrarMensaje.MostrarMensajeError("Edicion de Inspeccion De Uso Epp Erroneo");
+            }
+        }
+        else
+        {
+            Funcionarios = httpResponse.Response;
+        }
+    }
+    private async Task Editar()
+    {
+        await mostrarMensaje.MostrarMensajeExitoso("Edicion de Inspeccion De Uso Epp Exitoso");
+        await repositorio.Put(Funcionarios);
+    }
+}

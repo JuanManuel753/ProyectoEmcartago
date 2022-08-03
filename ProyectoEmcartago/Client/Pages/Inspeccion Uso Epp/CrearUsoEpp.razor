@@ -1,0 +1,27 @@
+﻿@page "/usoepp/crear"
+@inject IRepositorioUsoEpp repositorio
+@inject IMostrarMensajes mostrarMensajes
+@inject NavigationManager navigationManager
+<PageTitle >Crear Inspeccion Uso Epp</PageTitle>
+<MudText Typo="Typo.h3" Style="display:flex; justify-content:center;">Creacion De Inspeccion Uso Epp</MudText>
+<FormularioUsoEpp OnValidSubmit="Crear" funcionario="Funcionarios" />
+
+@code
+{
+    private InspeccionUsoEpp Funcionarios = new InspeccionUsoEpp();
+
+
+    async Task Crear()
+    {
+        var httpResponse = await repositorio.Post("api/usoepp", Funcionarios);
+        if (httpResponse.Error)
+        {
+            await mostrarMensajes.MostrarMensajeError("Creacion de Inspeccion De Uso Epp Erronea");
+        }
+        else
+        {
+            await mostrarMensajes.MostrarMensajeExitoso("Creacion de Inspeccion De Uso Epp Exitoso");
+            navigationManager.NavigateTo("/usoepp/crear", true);
+        }
+    }
+}

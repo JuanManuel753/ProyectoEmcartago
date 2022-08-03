@@ -1,0 +1,128 @@
+﻿<EditForm Model="Funcionarios" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div style="display:flex; justify-content:center;">
+        <MudPaper Elevation="0" Class="py-8 px-10" Style="width:1096px;" >
+            <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:20px; margin-right:10px;">
+                <div style="flex-direction:column; flex-wrap:wrap; width:350px; margin-right:165px; margin-bottom:20px;" >
+
+                    <MudDatePicker Label="Fecha De Formato" @bind-Date="@Funcionarios.Fecha_Formato" Mask="@(new DateMask("dd/MM/yyyy"))" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12"/>
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:500px; margin-bottom:20px;" >
+                    <MudSelect @bind-Value="@Funcionarios.Oficina" T="string" For="@(() => Funcionarios.Oficina)" Label="Oficina" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem T="string" Value="@("Gerencia")" />
+                        <MudSelectItem T="string" Value="@("Planeación Institucional")" />
+                        <MudSelectItem T="string" Value="@("Jurídica y Contratación")" />
+                        <MudSelectItem T="string" Value="@("SIGA - Control integral de la Gestión Administrativa")" />
+                        <MudSelectItem T="string" Value="@("Calidad y Medio Ambiente")" />
+                        <MudSelectItem T="string" Value="@("Laboratorio Calidad de Agua")" />
+                        <MudSelectItem T="string" Value="@("Comunicación e Imagen Corporativa")" />
+                        <MudSelectItem T="string" Value="@("Tecnologías y Sistemas de Información")" />
+                        <MudSelectItem T="string" Value="@("Control Disciplinario Interno")" />
+                        <MudSelectItem T="string" Value="@("Subgerencia Técnica y Operativa")" />
+                        <MudSelectItem T="string" Value="@("Acueducto y Alcantarillado")" />
+                        <MudSelectItem T="string" Value="@("Normalización de Servicios")" />
+                        <MudSelectItem T="string" Value="@("Eléctrica")" />
+                        <MudSelectItem T="string" Value="@("Subgerencia Administrativa y de Talento Humano")" />
+                        <MudSelectItem T="string" Value="@("Talento Humano")" />
+                        <MudSelectItem T="string" Value="@("Recursos Físicos")" />
+                        <MudSelectItem T="string" Value="@("Archivo y Correspondencia")" />
+                        <MudSelectItem T="string" Value="@("Subgerencia Financiera")" />
+                        <MudSelectItem T="string" Value="@("Comercial")" />
+                        <MudSelectItem T="string" Value="@("Facturación")" />
+                        <MudSelectItem T="string" Value="@("Cartera")" />
+                        <MudSelectItem T="string" Value="@("Atención al Ciudadano")" />
+                        <MudSelectItem T="string" Value="@("Presupuesto y Costos")" />
+                        <MudSelectItem T="string" Value="@("Contabilidad")" />
+                        <MudSelectItem T="string" Value="@("Tesorería")" />
+                </MudSelect>
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:700px; margin-bottom:30px;" >
+                    <MudTextField Label="Nombre Del Funcionario" @bind-Value="@Funcionarios.Nombre" For="@(() => Funcionarios.Nombre)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentIcon="@Icons.Rounded.Person" Adornment="Adornment.End" AdornmentColor="Color.Primary" />
+                    
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:400px; margin-bottom:30px; margin-right:120px;" >
+                    <MudTextField Label="Cedula Del Funcionario" @bind-Value="@Funcionarios.Cedula" For="@(() => Funcionarios.Cedula)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentIcon="@Icons.Rounded.Terminal" Adornment="Adornment.End" AdornmentColor="Color.Primary" />
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:400px; margin-bottom:30px;" >
+                    <MudTextField Label="Cargo Del Funcionario" @bind-Value="@Funcionarios.Cargo" For="@(() => Funcionarios.Cargo)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentIcon="@Icons.Rounded.AssignmentInd" Adornment="Adornment.End" AdornmentColor="Color.Primary" />
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:400px; margin-bottom:20px; margin-right:115px;" >
+                    <MudSelect @bind-Value="@Funcionarios.Causa_Del_Permiso" T="string" For="@(() => Funcionarios.Causa_Del_Permiso)" Label="Causas De Permiso" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem T="string" Value="@("Diligencia Personal")" />
+                        <MudSelectItem T="string" Value="@("Permiso Sindical")" />
+                        <MudSelectItem T="string" Value="@("Trabajo De Campo")" />
+                        <MudSelectItem T="string" Value="@("Cita Medica Y/O Odontologica")" />
+                        <MudSelectItem T="string" Value="@("Hora De Lactancia")" />
+                        <MudSelectItem T="string" Value="@("Permiso Por Estudio")" />
+                        <MudSelectItem T="string" Value="@("Otro")" />
+                    </MudSelect>
+                </div>
+
+                @if(Funcionarios.Causa_Del_Permiso == "Otro"){
+                <div style="flex-direction:column; flex-wrap:wrap; width:500px; margin-bottom:20px;" >
+                    <MudTextField @bind-Value="@Funcionarios.Causa_Del_Permiso_Otros" T="string" Required="true"  Variant="Variant.Outlined" Margin="Margin.Dense"  Lines="2" Label="Otras Causas De Permiso"/>
+                    
+                </div>
+                }
+            </div>
+
+            <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:20px; margin-right:10px;">   
+                
+                <div style="flex-direction:column; flex-wrap:wrap; width:350px; margin-bottom:20px; margin-right:165px;" >
+                    <MudDatePicker Label="Fecha Desde" @bind-Date="@Funcionarios.Fecha_Desde"  For="@(() => Funcionarios.Fecha_Desde)" Margin="Margin.Dense" AdornmentColor="Color.Primary" Variant="Variant.Outlined" Editable="true" Color="Color.Secondary" Elevation="12"/>
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:400px; margin-bottom:20px;" >
+                    <MudDatePicker Label="Fecha Hasta" @bind-Date="@Funcionarios.Fecha_Hasta"  For="@(() => Funcionarios.Fecha_Hasta)" Margin="Margin.Dense" AdornmentColor="Color.Primary" Variant="Variant.Outlined" Editable="true" Color="Color.Secondary" Elevation="12"/>
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:700px; margin-bottom:30px;" >
+                    <MudTextField Label="Jefe Inmediato" @bind-Value="@Funcionarios.Autoriza_Jefe_Inmediato" For="@(() => Funcionarios.Autoriza_Jefe_Inmediato)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentIcon="@Icons.Rounded.Person" Adornment="Adornment.End" AdornmentColor="Color.Primary" />
+                    
+                </div>
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:700px; margin-bottom:30px;" >
+                    <MudTextField Label="Autoriza Subgerente Administrativo/Subgerente Tecnico/Jefe Talento Humano" @bind-Value="@Funcionarios.Autoriza_SubGerentes" For="@(() => Funcionarios.Autoriza_SubGerentes)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentIcon="@Icons.Rounded.Person" Adornment="Adornment.End" AdornmentColor="Color.Primary" />
+                    
+                </div>
+
+            </div>
+            <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:20px;">   
+                <div style="margin-right:80px;" >
+                    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" EndIcon="@Icons.Rounded.Save">Guardar</MudButton>
+                </div>
+
+                @*borrado solo aparece cuando esta editando*@
+                <div>
+                    @if (Funcionarios.Id != 0)
+                    {
+                    <MudRadioGroup T="bool" @bind-SelectedOption="Funcionarios.IsDeleted">
+                            <MudRadio Option="false" Color="Color.Success">Guardado</MudRadio>
+                            <MudRadio Option="true" Color="Color.Error">Eliminar</MudRadio>
+                    </MudRadioGroup>
+                        Console.WriteLine(Funcionarios.IsDeleted);
+                    }
+                    @*alerta de eliminar*@
+                    @if(Funcionarios.IsDeleted == true)
+                    {
+                        
+                       <MudAlert Icon="@Icons.TwoTone.WarningAmber" Severity="Severity.Error" Dense="true" Style="width:500px;" Class="my-2">Eliminar Seleccionado, Si Guarda El Formato De Permiso Sera Eliminado</MudAlert>     
+                    }
+
+                </div>
+            </div>
+            @*alerta de eliminar*@
+            
+        </MudPaper>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public FormatoPermisos Funcionarios { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+}

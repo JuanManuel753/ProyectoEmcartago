@@ -1,0 +1,105 @@
+﻿@page "/indiceusoepp"
+@inject IRepositorioUsoEpp repositorio
+@inject NavigationManager navigationManager
+
+<PageTitle>Indice Uso Epp</PageTitle>
+<ListadoGenerico Listado="Funcionarios">
+    <HayRegistrosCompleto>
+    <MudTable Items="Funcionarios"  Dense="@dense" Hover="@hover" Bordered="@bordered" Filter="new Func<InspeccionUsoEpp,bool>(FilterFunc1)" SortLabel="Sort By">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Inspeccion Uso Epp</MudText>
+        <MudButton @onclick="CreateNewfuncionario" Disabled="@_processing" Style="margin-left:30px;" Variant="Variant.Filled" Color="Color.Success" Size="Size.Large" EndIcon="@Icons.TwoTone.AddCircle">
+            @if (_processing)
+            {
+                <MudProgressCircular Class="ms-n1" Size="Size.Medium" Indeterminate="true"/>
+                <MudText Class="ms-2">Reedirigiendo</MudText>
+            }
+            else
+            {
+                <MudText>Nuevo Formulario</MudText>
+            }
+        </MudButton>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Nombre --- Cargo --- Fecha: D/M/AAAA H:MM:SS" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.PersonSearch" AdornmentColor="Color.Primary" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh></MudTh>
+        <MudTh><MudTableSortLabel SortBy="new Func<InspeccionUsoEpp, object>(x=>x.Nombre)">Nombre</MudTableSortLabel></MudTh>
+        <MudTh>Cargo</MudTh>
+        <MudTh>Fecha</MudTh>
+        <MudTh>Responsable Inspección</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>
+            <MudIconButton  Icon="@Icons.TwoTone.EditNote" Color="Color.Primary" aria-label="Editar" @onclick="(() => Editar(context.Id))"></MudIconButton>
+            <MudIconButton  Icon="@Icons.TwoTone.RemoveRedEye" Color="Color.Primary" aria-label="Ver" @onclick="(() => VerFuncionario(context.Id))"></MudIconButton>
+        </MudTd>
+        <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+        <MudTd DataLabel="Nombre">@context.Cargo</MudTd>
+        <MudTd DataLabel="Fecha">@context.Fecha</MudTd>
+        <MudTd DataLabel="Responsable Inspeccion">@context.Responsable_Inspeccion</MudTd>
+    </RowTemplate>
+    <PagerContent >
+        <MudTablePager Style="display: flex; flex-wrap: wrap;justify-content:center; text-align:center;" PageSizeOptions="new int[] {15,25,50,75,100,150,200}" RowsPerPageString="Paginacion" InfoFormat="{first_item}-{last_item} Total: {all_items}" />
+    </PagerContent>
+    </MudTable>
+    </HayRegistrosCompleto>
+</ListadoGenerico>
+
+@code {
+    public List<InspeccionUsoEpp> Funcionarios { get; set; }
+    private bool _processing = false; //button
+    protected async override Task OnInitializedAsync()
+    {
+        await Cargar();
+    }
+
+    private async Task Cargar()
+    {
+        var responseHttp = await repositorio.Get<List<InspeccionUsoEpp>>("api/Usoepp");
+        Funcionarios = responseHttp.Response;
+    }
+
+    void VerFuncionario(int id)
+    {
+        navigationManager.NavigateTo($"usoepp/visualizarusoepp/{id}");
+    }
+
+    void Editar(int id)
+    {
+        navigationManager.NavigateTo($"usoepp/editar/{id}");
+    }
+
+    async void CreateNewfuncionario()
+    {
+        _processing = true;
+        await Task.Delay(2000);
+        _processing = false;
+        navigationManager.NavigateTo("/usoepp/crear");
+    }
+
+    private bool dense = true;
+    private bool hover = true;
+    private bool bordered = true;
+    private HashSet<InspeccionUsoEpp> selectedItems = new HashSet<InspeccionUsoEpp >();
+
+    //buscador
+    private string searchString1 = "";
+    private bool FilterFunc1(InspeccionUsoEpp element) => FilterFunc(element, searchString1);
+    private bool FilterFunc(InspeccionUsoEpp element, string buscar)
+    {
+        if (string.IsNullOrWhiteSpace(buscar))
+            return true;
+        if (element.Nombre.Contains(buscar, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Cargo.Contains(buscar, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Responsable_Inspeccion.Contains(buscar, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Fecha.ToString().Contains(buscar, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Nombre} {element.Cargo} {element.Fecha} {element.Responsable_Inspeccion}".Contains(buscar))
+            return true;
+        return false;
+    }
+}

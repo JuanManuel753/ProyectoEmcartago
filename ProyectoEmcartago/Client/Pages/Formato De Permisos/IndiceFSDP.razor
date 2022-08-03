@@ -1,0 +1,114 @@
+﻿@page "/indiceformatodesolicituddepermiso"
+@inject IRepositorioPermisos repositorio
+@inject NavigationManager navigationManager
+
+<PageTitle>Tabla Formato De Solicitud De Permisos</PageTitle>
+<ListadoGenerico Listado="Funcionarios">
+    <HayRegistrosCompleto>
+        <MudTable Items="@Funcionarios"  Dense="@dense" Hover="@hover" Bordered="@bordered" Filter="new Func<FormatoPermisos,bool>(FilterFunc1)">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Formato Solicitud De Permisos</MudText>
+                <MudButton Disabled="@_processing" Style="margin-left:30px;" Variant="Variant.Filled" Color="Color.Success" Size="Size.Large" EndIcon="@Icons.TwoTone.AddCircle" @onclick="CrearPermisos">
+                @if (_processing)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Medium" Indeterminate="true"/>
+                    <MudText Class="ms-2">Reedirigiendo</MudText>
+                }
+                else
+                {
+                    <MudText>Nuevo Permiso</MudText>
+                }
+                </MudButton>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Nombre --- Cedula" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.PersonSearch" AdornmentColor="Color.Primary" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh Style="width:161px;"></MudTh>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Oficina</MudTh>
+                <MudTh>Cargo</MudTh>
+                <MudTh>Cedula</MudTh>
+                <MudTh>Fecha De Formato</MudTh>
+                <MudTh>Causa Del Permiso</MudTh>
+                <MudTh>Causa Del Permiso Otro</MudTh>
+                <MudTh>Jefe Inmediato</MudTh>
+                <MudTh>SubGerente</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <MudIconButton @onclick="@(() => IrEditarPermisos(context.Id))" Icon="@Icons.TwoTone.EditNote" Color="Color.Primary"></MudIconButton>
+                    <MudIconButton @onclick="@(() => IrVerEImprimir(context.Id))" Icon="@Icons.TwoTone.RemoveRedEye" Color="Color.Primary"></MudIconButton>
+                </MudTd>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd DataLabel="Oficina">@context.Oficina</MudTd>
+                <MudTd DataLabel="Cargo">@context.Cargo</MudTd>
+                <MudTd DataLabel="Cedula">@context.Cedula</MudTd>
+                <MudTd DataLabel="Fecha De Formato">@context.Fecha_Formato</MudTd>
+                <MudTd DataLabel="Causa Del Permiso">@context.Causa_Del_Permiso</MudTd>
+                <MudTd DataLabel="Causa Del Permiso">@context.Causa_Del_Permiso_Otros</MudTd>
+                <MudTd DataLabel="Jefe Inmediato">@context.Autoriza_Jefe_Inmediato</MudTd>
+                <MudTd DataLabel="SubGerente">@context.Autoriza_SubGerentes</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager Style="display: flex; flex-wrap: wrap;justify-content:center; text-align:center;" PageSizeOptions="new int[] {15,25,50,75,100,150,200}" RowsPerPageString="Paginacion" InfoFormat="{first_item}-{last_item} Total: {all_items}" />
+            </PagerContent>
+        </MudTable>
+    </HayRegistrosCompleto>
+</ListadoGenerico>
+
+
+
+@code {
+    public List<FormatoPermisos> Funcionarios { get; set; }
+    private bool _processing = false; //button
+    protected async override Task OnInitializedAsync()
+    {
+        await Cargar();
+    }
+
+    private async Task Cargar()
+    {
+        var responseHttp = await repositorio.Get<List<FormatoPermisos>>("api/FSDP");
+        Funcionarios = responseHttp.Response;
+    }
+
+    private void IrEditarPermisos(int id)
+    {
+        navigationManager.NavigateTo($"/formatodesolicituddepermiso/Editar/{id}");
+    }
+
+    async void IrVerEImprimir(int id)
+    {
+        navigationManager.NavigateTo($"/formatodesolicituddepermiso/Ver/{id}");
+    }
+
+    async void CrearPermisos()
+    {
+        _processing = true;
+        await Task.Delay(1000);
+        _processing = false;
+        navigationManager.NavigateTo("formatodesolicituddepermiso/crear"); 
+    }
+    
+
+    private bool dense = true;
+    private bool hover = true;
+    private bool bordered = true;
+    private HashSet<FormatoPermisos> selectedItems = new HashSet<FormatoPermisos>();
+
+    //buscador
+    private string searchString1 = "";
+    private bool FilterFunc1(FormatoPermisos element) => FilterFunc(element, searchString1);
+    private bool FilterFunc(FormatoPermisos element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Nombre} {element.Cedula}".Contains(searchString))
+            return true;
+        return false;
+    }
+}

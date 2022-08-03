@@ -1,0 +1,605 @@
+﻿@page "/usoepp/visualizarusoepp/{Id:int}"
+@inject IRepositorioUsoEpp repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensaje
+
+<PageTitle>Ver @funcionario.Nombre</PageTitle>
+<div style="display:flex; justify-content:center;">
+    <MudPaper Elevation="4" Class="py-8 px-10" Style="width:1096px;" >
+
+    <MudText Style="display:flex; justify-content:center;margin-bottom:5px;" Typo="Typo.h6">Inspeccion De Uso Epp Del Funcionario</MudText>
+    <MudText Style="display:flex; justify-content:center; margin-bottom:25px;" Typo="Typo.h6">@funcionario.Nombre</MudText>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+            <MudText Typo="Typo.subtitle2">Fecha:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:20px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Fecha</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+            <MudText Typo="Typo.subtitle2">Funcionario:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:80px; width:330px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Nombre</MudText>
+        </div>
+
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+            <MudText Typo="Typo.subtitle2">Responsable De Inspeccion:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:20px; width:220px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Responsable_Inspeccion</MudText>
+        </div>
+    </div>
+    
+    <div  style="width:100%; display:flex; flex-wrap:wrap;  margin-bottom:60px;">
+    <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+            <MudText Typo="Typo.subtitle2">Cargo:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:148px; width:300px;">
+            <MudText Typo="Typo.subtitle2">@funcionario.Cargo</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+            <MudText Typo="Typo.subtitle2">Coordinador De Trabajo En Alturas:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:20px; width:220px" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Nombre_Coordinador_En_Alturas</MudText>
+        </div>
+    </div>
+    @*titulos similares a una tabla.*@
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px;" >
+            <MudText Typo="Typo.subtitle2">No.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:30px; width:267px">
+            <MudText Typo="Typo.subtitle2">ELEMENTOS DE PROTECCION PERSONAL</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:170px;" >
+            <MudText Typo="Typo.subtitle2">CUMPLIMIENTO</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">OBSERVACIONES</MudText>
+        </div>
+    </div>
+
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">1.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Casco De Seguridad:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Casco_De_Seguridad</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Casco_De_Seguridad</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">2.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Guantes Tipo Ingeniero:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Guantes_Tipo_Ingeniero</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Guantes_Tipo_Ingeniero</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">3.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Guantes De Caucho:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Guantes_De_Caucho</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Guantes_De_Caucho</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">4.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Guantes De Carnaza:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Guantes_Carnaza</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Guantes_Carnaza</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">5.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Gafas De Seguridad:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Gafas_De_Seguridad</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Gafas_De_Seguridad</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">6.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Gafas De Seguridad Lente Oscuro:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Gafas_De_Seguridad_lente_Oscuro</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Gafas_De_Seguridad_lente_Oscuro</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">7.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Careta De Seguridad:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Careta_De_Seguridad</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Careta_De_Seguridad</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">8.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Mascarilla Con Filtros:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Mascarilla_Con_Filtros</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Mascarilla_Con_Filtros</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">9.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Tapa Bocas:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Tapa_Bocas</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Tapa_Bocas</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">10.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Protector Auditivo Insercion:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Protector_Auditivo_Insercion</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Protector_Auditivo_Insercion</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">11.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Protector Auditivo De Copa:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px;width:71px; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Protector_Auditivo_De_Copa</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Protector_Auditivo_De_Copa</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">12.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Chaleco Reflectivo:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Chaleco_Reflectivo</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Chaleco_Reflectivo</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">13.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Impermeable:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Impermeable</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; " >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Impermeable</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">14.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Otros:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Otros</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-bottom:25px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Otros</MudText>
+        </div>
+    </div>
+    
+    @*2. titulos similares a una tabla.*@
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px;" >
+            <MudText Typo="Typo.subtitle2">No.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:30px; width:267px">
+            <MudText Typo="Typo.subtitle2">DOTACION CAMISA,PANTALON,CALZADO</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:170px;" >
+            <MudText Typo="Typo.subtitle2">CUMPLIMIENTO</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">OBSERVACIONES</MudText>
+        </div>
+    </div>
+
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">1.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Pantalon Con Reflectivo:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Pantalon_Reflectivo</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Pantalon_Reflectivo</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">2.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Camisa Con Reflectivo:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Camisa_Con_Reflectivo</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Camisa_Con_Reflectivo</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">3.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Botas De Seguridad Con Puntera:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Botas_De_Seguridad_Con_Puntera</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Botas_De_Seguridad_Con_Puntera</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">4.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Botas De Caucho Con Puntera:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Botas_De_Caucho_Con_Puntera</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Botas_De_Caucho_Con_Puntera</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">5.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Botas De Seguridad Sin Puntera:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Botas_De_Seguridad_Sin_Puntera</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Botas_De_Seguridad_Sin_Puntera</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">6.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Gorra:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Gorra</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-bottom:25px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Gorra</MudText>
+        </div>
+    </div>
+
+
+    @*3. titulos similares a una tabla.*@
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px;" >
+            <MudText Typo="Typo.subtitle2">No.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:30px; width:267px">
+            <MudText Typo="Typo.subtitle2">CONTRATISTA</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:170px;" >
+            <MudText Typo="Typo.subtitle2">CUMPLIMIENTO</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">OBSERVACIONES</MudText>
+        </div>
+    </div>
+
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">1.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Seguridad Social (Salud - Pension - ARL):</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Seguridad_Social</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Seguridad_Social</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">2.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Dotacion Contratista Con Reflectivo Marcada Como Contratista:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Dotacion_Contratista_Con_Reflectivo_Marcada_Como_Contratista</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Dotacion_Contratista_Con_Reflectivo_Marcada_Como_Contratista</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">3.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Carnet De Contratista:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Carnet_De_Contratista</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Carnet_De_Contratista</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">4.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Epp's De Acuerdo A La Actividad:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Epps_De_Acuerdo_A_La_Actividad</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Epps_De_Acuerdo_A_La_Actividad</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">5.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Trabajo En Alturas (Curso Avanzado Y Reentrenamiento):</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Trabajo_En_Alturas</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Trabajo_En_Alturas</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">6.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Dispocion De Los Epp's Proteccion Contra Caidas Y Sistemas De Accesso:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Trabajo_En_Alturas</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Trabajo_En_Alturas</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">7.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Disponer En Sitio Coordinador Para Trabajo En Alturas Que Firme y Autorice:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Sitio_Coordinador_Para_Trabajo_En_Alturas</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Sitio_Coordinador_Para_Trabajo_En_Alturas</MudText>
+        </div>
+    </div>
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:60px;">
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:25px; width:22px;" >
+            <MudText Typo="Typo.subtitle2">8.</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:40px; width:267px;">
+            <MudText Typo="Typo.subtitle2">Actividad Mayor O Igual A 15 Dias Solicitar Coordinador De SST En Sitio:</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap; margin-right:150px; width:71px;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Actividad_Mayor_O_Igual_A_15_Dias</MudText>
+        </div>
+        <div style="flex-direction:column; flex-wrap:wrap;" >
+            <MudText Typo="Typo.subtitle2">@funcionario.Observacion_Actividad_Mayor_O_Igual_A_15_Dias</MudText>
+        </div>
+    </div>
+    @if (funcionario.Opcion_Disposicion_De_Los_Epps != "" || funcionario.Otro_Elemento != "" || funcionario.Curso_Trabajo_En_Alturas != "")
+    {
+        <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+            <MudText Typo="Typo.h6">MAS INFORMACION</MudText>
+        </div>    
+    }
+    
+
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        @if(funcionario.Opcion_Disposicion_De_Los_Epps != "")
+        {
+            <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+                <MudText Typo="Typo.subtitle2">Dispone De Los Epps:</MudText>
+            </div>
+            <div style="flex-direction:column; flex-wrap:wrap; width:170px; margin-right:50px;">
+                <MudText Typo="Typo.subtitle2">@funcionario.Opcion_Disposicion_De_Los_Epps</MudText>
+            </div>  
+        }
+        @if(funcionario.Otro_Elemento != ""){
+            <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+            <MudText Typo="Typo.subtitle2">Otros Elementos:</MudText>
+            </div>
+            <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px; width:200px;">
+            <MudText Typo="Typo.subtitle2">@funcionario.Otro_Elemento</MudText>
+        </div>
+        }
+        </div>
+    <div  style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:10px;">
+        @if (funcionario.Curso_Trabajo_En_Alturas != "")
+        {
+            <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+                <MudText Typo="Typo.subtitle2">Curso De Trabajo En Alturas:</MudText>
+            </div>
+            <div style="flex-direction:column; flex-wrap:wrap; margin-right:3px;">
+                <MudText Typo="Typo.subtitle2">@funcionario.Curso_Trabajo_En_Alturas</MudText>
+            </div>
+        }
+    </div>
+    <div class="form-group" style="display:flex; flex-wrap:wrap; flex-direction:row; margin-top:30px;" >
+    @if(funcionario.Imagenes_UsoEpp != null){
+
+        foreach (var image in funcionario.Imagenes_UsoEpp)
+        {
+            <MudCard Class="ma-2" Elevation="0">
+                <MudCardContent>
+                <MudImage Src="@image.Imagen" />
+                </MudCardContent>
+                <MudCardActions Style="margin-bottom:10px; justify-content:center;">
+                </MudCardActions>
+            </MudCard>
+        }
+    }
+    </div>
+    
+
+    </MudPaper>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    InspeccionUsoEpp funcionario = new InspeccionUsoEpp();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var httpResponse = await repositorio.Get<InspeccionUsoEpp>($"api/usoepp/{Id}");
+
+        if (httpResponse.Error)
+        {
+            if (httpResponse.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("indiceusoepp");
+            }
+            else
+            {
+                await mostrarMensaje.MostrarMensajeError(await httpResponse.GetBody());
+            }
+        }
+        else
+        {
+            funcionario = httpResponse.Response;
+        }
+    }
+}

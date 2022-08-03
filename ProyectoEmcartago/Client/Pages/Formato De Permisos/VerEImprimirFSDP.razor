@@ -1,0 +1,143 @@
+﻿@page "/formatodesolicituddepermiso/Ver/{Id:int}"
+@layout EmptyLayout
+@inject IRepositorioPermisos repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensaje
+
+<PageTitle>Solicitud De Permiso @Funcionarios.Nombre</PageTitle>
+<div style="display:flex; ">
+    <MudPaper  Elevation="0" Class="py-1 px-1" Style="width:1096px;  justify-content:center;">
+        <div  style=" width:100%; display:flex;  margin-bottom:20px; flex-direction:row;">
+            <table class="table table-bordered table-sm" style="width:150px; height:150px;">
+                    <thead>
+                        <tr>
+                            <th><MudImage Src="/Logoemc.png" Alt="Logo Emcartago" Style="height:136px;" Class="rounded-lg"/></th>
+                        </tr>
+                    </thead>
+                </table>
+            <div style="flex-direction:column; display:flex;  align-items:center; width:100%;" >
+                <MudText Typo="Typo.h6" Style="margin-bottom:10px;">EMPRESAS MUNICIPALES DE CARTAGO E.S.P</MudText>
+                <MudText Typo="Typo.h6" Style="margin-bottom:40px;">FORMATO SOLICITUD DE PERMISO</MudText>
+
+            <div style="flex-direction:row; display:flex; width:100%; height:35px;">
+                <table class="table table-bordered table-sm" >
+                    <thead>
+                        <tr>
+                            <th><MudText Typo="Typo.subtitle2" Style="margin-left:80px;" >Version: 6</MudText></th>
+                            <th><MudText Typo="Typo.subtitle2" Style="margin-left:80px;" >Fecha: 04/11/2020</MudText></th>
+                            <th><MudText Typo="Typo.subtitle2" Style="margin-left:80px;" >Codigo: F-GTH-TH-PD3-3</MudText></th>
+                            <th><MudText Typo="Typo.subtitle2" Style="margin-left:80px;" >TRD: 240</MudText></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            </div>
+        </div>
+
+        <div  style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row;">
+            <MudText Typo="Typo.subtitle2" >Fecha: @Funcionarios.Fecha_Formato.Value.ToShortDateString()</MudText>
+            <MudText Typo="Typo.subtitle2" Style="margin-left:250px;" >Oficina: @Funcionarios.Oficina</MudText>
+        </div>
+
+        <div  style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row;">
+            <MudText Typo="Typo.subtitle2" >Nombre Del Funcionario: @Funcionarios.Nombre</MudText>
+        </div>
+
+        <div  style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row;">
+            <MudText Typo="Typo.subtitle2" >Cedula: </MudText>
+            <MudText Typo="Typo.subtitle2" Style="width:120px;">@Funcionarios.Cedula</MudText>
+            <MudText Typo="Typo.subtitle2" Style="margin-left:250px; width:500px;" >Cargo: @Funcionarios.Cargo</MudText>
+        </div>
+        @if(Funcionarios.Causa_Del_Permiso != "Otro")
+        {
+        <div  style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row;">
+            <MudText Typo="Typo.subtitle2">Por este medio solicito permiso para ausentarme de mi puesto de trabjo por motivos de:</MudText>
+            <MudText Typo="Typo.subtitle2" Style="margin-left:10px;">@Funcionarios.Causa_Del_Permiso</MudText>
+        </div>
+        }
+        @if (Funcionarios.Causa_Del_Permiso == "Otro")
+        {
+        <div  style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row;">
+            <MudText Typo="Typo.subtitle2">Por este medio solicito permiso para ausentarme de mi puesto de trabjo por motivos de:</MudText>
+            <MudText Typo="Typo.subtitle2" Style="margin-left:10px;">@Funcionarios.Causa_Del_Permiso_Otros</MudText>
+        </div>
+        }
+        <div  style=" width:100%; display:flex; flex-direction:row;">
+            <MudText Typo="Typo.subtitle2" Style="width:400px; margin-right:10px;">Fecha Desde: @Funcionarios.Fecha_Desde.Value.ToLongDateString()</MudText>
+            <MudText Typo="Typo.subtitle2" Style="width:400px;">Fecha Hasta: @Funcionarios.Fecha_Hasta.Value.ToLongDateString()</MudText>
+        </div>
+
+        <div  style=" width:100%; display:flex; flex-direction:row;">
+            <MudTextField @bind-Value="@Funcionarios.Autoriza_Jefe_Inmediato" Variant="Variant.Text" Margin="Margin.Dense" Disabled="true" HelperText="Jefe Inmediato" Style="width:90%; color:#000000; height:12px;"></MudTextField>
+            <MudTextField @bind-Value="@Funcionarios.Autoriza_SubGerentes" Variant="Variant.Text" Margin="Margin.Dense" Disabled="true" HelperText="Subgerente Administrativo/Subgerente Tecnico/Jefe De Talento Humano" Style="width:72%; color:#000000; height:12px;"></MudTextField>
+        </div>
+            <table class="table table-bordered table-sm" >
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Actividades</th>
+                        <th>Ante Oficina</th>
+                        <th>Firma Responsable</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style=" width:100%; display:flex; flex-direction:row;">
+            <MudTextField T="String" HelperText="Nombre Vigilante De Turno"  Style=" width:40%; height:5px;" Disabled="true"/>
+            <MudIconButton Icon="@Icons.Filled.ExitToApp" Size="Size.Small" Color="Color.Error" @onclick="SalirAFormulario"/>
+            </div>
+    </MudPaper>
+</div>
+@code {
+    [Parameter] public int Id { get; set; }
+    FormatoPermisos Funcionarios = new FormatoPermisos();
+    private void SalirAFormulario()
+    {
+        navigationManager.NavigateTo("/indiceformatodesolicituddepermiso");
+    }
+    protected async override Task OnInitializedAsync()
+    {
+        var httpResponse = await repositorio.Get<FormatoPermisos>($"api/fsdp/{Id}");
+
+        if (httpResponse.Error)
+        {
+            if (httpResponse.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("");
+            }
+            else
+            {
+                await mostrarMensaje.MostrarMensajeError(await httpResponse.GetBody());
+            }
+        }
+        else
+        {
+            Funcionarios = httpResponse.Response;
+        }
+    }
+}

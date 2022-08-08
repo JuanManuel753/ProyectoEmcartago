@@ -3,6 +3,7 @@ global using Microsoft.EntityFrameworkCore;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_Formato_De_Permisos;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_Uso_Epp;
 global using ProyectoEmcartago.Server.Data;
+global using ProyectoEmcartago.Shared.Entidades.Entidad_Ingreso_y_Salida;
 
 var builder = WebApplication.CreateBuilder(args);
 

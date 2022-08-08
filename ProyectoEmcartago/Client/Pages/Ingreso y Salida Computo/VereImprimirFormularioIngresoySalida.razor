@@ -1,0 +1,146 @@
+﻿@page "/ingresoysalidacomputo/ver/{Id:int}"
+@layout EmptyLayout
+@inject IRepositorioIngresoySalida repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensaje
+
+<div style="display:flex; justify-content:center">
+    <MudPaper Elevation="0" Class=" px-1" Style="width:1096px;">
+        <MudIconButton Icon="@Icons.Filled.ExitToApp" Size="Size.Small" Style="float:right;" Color="Color.Error" @onclick="Salir"/>
+        <div style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row; border:1px solid grey;">
+            <div style="border-right:1px solid grey; width:200px; display:flex;  justify-content:center;">
+                <MudImage Src="/Logoemc.png" Alt="Logo Emcartago" Class="rounded-lg" Width="90" />
+            </div>
+            <div style="flex-direction:column; display:flex;  align-items:center; width:100%; ">
+                <div style="display:flex; align-items:center; justify-content:center; width:100%; height:80%;">
+                    <MudText Typo="Typo.h6" Style="margin-bottom:0px;">EMPRESAS MUNICIPALES DE CARTAGO E.S.P</MudText>
+                </div>
+
+                <div style="flex-direction:row; display:flex; width:100%; border-top:1px solid grey; height:20%; justify-content:space-evenly; align-items:center;">
+                    <MudText Typo="Typo.subtitle2" Style="border-right:1px solid grey; width:25%; text-align:center;">Version: 3</MudText>
+                    <MudText Typo="Typo.subtitle2" Style="border-right:1px solid grey; width:25%; text-align:center;">Fecha: 30/10/2020</MudText>
+                    <MudText Typo="Typo.subtitle2" Style="border-right:1px solid grey; width:25%; text-align:center;">Codigo: F-SL-GCon-PD1-2</MudText>
+                    <MudText Typo="Typo.subtitle2" Style="width:25%; text-align:center;">TRD: </MudText>
+                </div>
+            </div>
+        </div>
+
+        <div style=" width:100%; display:flex;  margin-bottom:10px; flex-direction:row; border:1px solid grey; padding-left:10px;">
+            <MudText Typo="Typo.h6">INGRESO/SALIDA DE EQUIPOS DE CÓMPUTO</MudText>
+            <MudText Typo="Typo.h6" Style="margin-left:100px;">N° de registro : @IngresoySalidaEquiposComputo.Id </MudText>
+        </div>
+        <div style=" width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly; flex-direction:row; ">
+            <MudText Style="width:25%; height:50px; border:1px solid grey;" Typo="Typo.subtitle2"><strong>Dependecia:</strong> @IngresoySalidaEquiposComputo.Dependencia</MudText>
+            <MudText Style="width:25%; border-top:1px solid grey;" Typo="Typo.subtitle2"><strong>Lugar:</strong> @IngresoySalidaEquiposComputo.Lugar</MudText>
+            <MudText Style="width:25%; border-top:1px solid grey; border-left:1px solid grey;" Typo="Typo.subtitle2"><strong>Fecha de salida:</strong> @IngresoySalidaEquiposComputo.Fecha_salida.Value.ToShortDateString()</MudText>
+            <MudText Style="width:25%; border-top:1px solid grey; border-right:1px solid grey; border-left:1px solid grey;" Typo="Typo.subtitle2"><strong>Fecha de ingreso:</strong> @IngresoySalidaEquiposComputo.Fecha_entrada.Value.ToShortDateString()</MudText>
+        </div>
+        <div style=" width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly; flex-direction:row;">
+            <MudText Style="width:25%; height:50px; border-right:1px solid grey; border-left:1px solid grey;" Typo="Typo.subtitle2"><strong>Codigo de bien:</strong> @IngresoySalidaEquiposComputo.Codigo_bien</MudText>
+            <MudText Style="width:25%; border-bottom:1px solid grey; border-top:1px solid grey;" Typo="Typo.subtitle2"><strong>Marca:</strong> @IngresoySalidaEquiposComputo.Marca</MudText>
+            <MudText Style="width:25%; border-bottom:1px solid grey; border-top:1px solid grey; border-left:1px solid grey;" Typo="Typo.subtitle2"><strong>Modelo:</strong> @IngresoySalidaEquiposComputo.Modelo</MudText>
+            <MudText Style="width:25%; border-bottom:1px solid grey; border-top:1px solid grey; border-left:1px solid grey; border-right:1px solid grey;" Typo="Typo.subtitle2"><strong>N° de serie</strong> :@IngresoySalidaEquiposComputo.N_serie</MudText>
+        </div>
+        <div style=" width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly;  flex-direction:row; ">
+            <MudText Style="width:25%; height:50px; border:1px solid grey;" Typo="Typo.subtitle2"><strong>Destino:</strong> @IngresoySalidaEquiposComputo.Destino</MudText>
+            <MudText Style="width:37.5%; border-bottom:1px solid grey;" Typo="Typo.subtitle2"><strong>Persona a quien se autoriza:</strong> @IngresoySalidaEquiposComputo.Persona_que_se_Autoriza</MudText>
+            <MudText Style="width:37.5%; border-right:1px solid grey; border-left:1px solid grey; border-bottom:1px solid grey;" Typo="Typo.subtitle2"><strong>Jefe que autoriza:</strong> @IngresoySalidaEquiposComputo.Jefe_que_Autoriza</MudText>
+        </div>
+        <div style="border-right:1px solid grey; border-left:1px solid grey; border-bottom:1px solid grey; padding-top:10px;">
+            <MudText Typo="Typo.h6"><strong>Autorizado para ingresar/salir con lo siguiente:</strong></MudText>
+
+            <div style=" width:100%;  display:flex; flex-wrap:wrap; justify-content:space-evenly;  margin-bottom:15px; margin-top:70px; flex-direction:row; ">
+                <div style="width:25%;   text-align:center; display:flex; flex-direction:row; align-items:center; ">
+                    <MudText Typo="Typo.subtitle2"><strong>Mantenimiento y/o Reparación:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.Mantenimiento_y_o_Reparacion"></MudCheckBox>
+                </div>
+                <div style="width:25%;  text-align:center; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Prestamo:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.Prestamo"></MudCheckBox>
+                </div>
+                <div style="width:25%;   text-align:center; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Devolución:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.Devolucion"></MudCheckBox>
+                </div>
+                <div style="width:25%; text-align:center; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Por ser de su propiedad:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.De_su_propiedad"></MudCheckBox>
+                </div>
+            </div>
+
+            <div style="width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly;flex-direction:row;">
+                <div style="width:25%; text-align:center; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Tranferencia:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.Tranferencia"></MudCheckBox>
+                </div>
+                <div style="width:25%;   text-align:center; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Despacho:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.Despacho"></MudCheckBox>
+                </div> 
+                <div style="width:25%;   text-align:center; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Realizar un trabajo:</strong></MudText>
+                    <MudCheckBox Disabled="true" @bind-Checked="@IngresoySalidaEquiposComputo.Realizar_trabajo"></MudCheckBox>
+                </div>
+                <div style="width:25%; display:flex; flex-direction:row; align-items:center; justify-content:center;">
+                    <MudText Typo="Typo.subtitle2"><strong>Otros:</strong> @IngresoySalidaEquiposComputo.Otros</MudText>
+
+                </div>
+            </div>
+        </div>
+        <div style=" width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly;  flex-direction:row;">
+            <div style="width:50%; display:flex; flex-direction:column; border-right:1px solid grey; border-left:1px solid grey; border-bottom:1px solid grey;">
+                <MudText Typo="Typo.subtitle2"><strong>Solicitado por:</strong> @IngresoySalidaEquiposComputo.Solicitado_por</MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Fecha:</strong> @IngresoySalidaEquiposComputo.fecha_Solicitado_por.Value.ToShortDateString()</MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Hora:</strong> @IngresoySalidaEquiposComputo.hora_Solicitado_por</MudText>
+            </div>
+            <div style="width:50%; display:flex; flex-direction:column; border-right:1px solid grey; border-bottom:1px solid grey;">
+                <MudText Typo="Typo.subtitle2"><strong>Autorizado por:</strong> @IngresoySalidaEquiposComputo.Autorizado_por</MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Fecha:</strong> @IngresoySalidaEquiposComputo.fecha_Autorizado_por.Value.ToShortDateString()</MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Hora:</strong> @IngresoySalidaEquiposComputo.hora_Autorizado_por</MudText>
+            </div>
+        </div>
+        <div style=" width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly; flex-direction:row; ">
+            <div style="width:50%; display:flex; flex-direction:column; border-right:1px solid grey; border-left:1px solid grey; border-bottom:1px solid grey;">
+                <MudText Style="margin-bottom:30px;" Typo="Typo.subtitle2"><strong>Control ingreso(Vigilante)</strong></MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Fecha:</strong></MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Hora:</strong></MudText>
+
+            </div>
+            <div style="width:50%; display:flex; flex-direction:column; border-right:1px solid grey; border-bottom:1px solid grey;">
+                <MudText Style="margin-bottom:30px;" Typo="Typo.subtitle2"><strong>Control salida(Vigilante)</strong></MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Fecha:</strong></MudText>
+                <MudText Typo="Typo.subtitle2"><strong>Hora:</strong></MudText>
+            </div>
+        </div>
+    </MudPaper>
+</div>
+@code {
+
+    [Parameter] public int Id { get; set; }
+    IngresoySalida IngresoySalidaEquiposComputo = new IngresoySalida();
+
+    protected async override Task OnInitializedAsync()
+    {
+        var httpResponse = await repositorio.Get<IngresoySalida>($"api/IngresoySalidaComputo/{Id}");
+
+        if (httpResponse.Error)
+        {
+            if (httpResponse.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("/indiceingresoysalidacomputo");
+            }
+            else
+            {
+                await mostrarMensaje.MostrarMensajeError(await httpResponse.GetBody());
+            }
+        }
+        else
+        {
+            IngresoySalidaEquiposComputo = httpResponse.Response;
+        }
+    }
+    private void Salir()
+    {
+        navigationManager.NavigateTo("/indiceingresoysalidacomputo");
+    }
+}

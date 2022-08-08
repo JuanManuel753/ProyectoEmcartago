@@ -1,4 +1,4 @@
-﻿namespace ProyectoEmcartago.Client.Repositorios.RepositorioFormatoPermisos
+﻿namespace ProyectoEmcartago.Client.Repositorios
 {
     public class HttpResponseWrapper<T>
     {

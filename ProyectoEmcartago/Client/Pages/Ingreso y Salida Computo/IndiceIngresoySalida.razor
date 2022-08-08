@@ -1,0 +1,88 @@
+﻿@page "/indiceingresoysalidacomputo"
+
+@inject IRepositorioIngresoySalida repositorio
+@inject NavigationManager NavigationManager
+
+
+
+<ListadoGenerico Listado="Funcionarios">
+    <HayRegistrosCompleto>
+        <MudTable Items="@Funcionarios" Dense="@dense" Hover="@hover" Bordered="@bordered" Filter="new Func<IngresoySalida,bool>(FilterFunc1)">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Formato Ingreso/Salida de equipos de computo</MudText>
+                <MudButton Href="ingresoysalidacomputo/crear" Style="margin-left:30px;" Variant="Variant.Filled" StartIcon="@Icons.Filled.Add" Color="Color.Success">Nuevo Registro</MudButton>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Dependencia --- Codigo de bien" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.PersonSearch" AdornmentColor="Color.Primary" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh>Id</MudTh>
+                <MudTh>Dependencia</MudTh>
+                <MudTh>Lugar</MudTh>
+                <MudTh>Fecha de salida</MudTh>
+                <MudTh>Codigo de bien</MudTh>
+                <MudTh>Hora</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <MudIconButton @onclick="@(() => IrEditarPermisos(context.Id))" Icon="@Icons.TwoTone.EditNote" Color="Color.Primary" />
+                    <MudIconButton @onclick="@(() => IrVerEImprimir(context.Id))" Icon="@Icons.TwoTone.RemoveRedEye" Color="Color.Primary" />
+                </MudTd>
+                <MudTd DataLabel="Id">@context.Id</MudTd>
+                <MudTd DataLabel="Dependencia">@context.Dependencia</MudTd>
+                <MudTd DataLabel="Lugar">@context.Lugar</MudTd>
+                <MudTd DataLabel="Fecha de salida">@context.Fecha_salida</MudTd>
+                <MudTd DataLabel="Codigo de bien">@context.Codigo_bien</MudTd>
+                <MudTd DataLabel="Hora de autorizado">@context.hora_Autorizado_por</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager Style="display: flex; flex-wrap: wrap;justify-content:center; text-align:center;" PageSizeOptions="new int[] {15,25,50,75,100,150,200}" RowsPerPageString="Paginacion" InfoFormat="{first_item}-{last_item} Total: {all_items}" />
+            </PagerContent>
+        </MudTable>
+    </HayRegistrosCompleto>
+</ListadoGenerico>
+
+
+
+
+
+@code {
+    public bool dense = true;
+    public bool hover = false;
+    private bool bordered = true;
+    public List<IngresoySalida> Funcionarios { get; set; }
+    //-------------------------------
+    protected override async Task OnInitializedAsync()
+    {
+        await CargarRegistro();
+    }
+    //-------------------------------
+    async Task CargarRegistro()
+    {
+        var responseHttp = await repositorio.Get<List<IngresoySalida>>("api/IngresoySalidaComputo");
+        Funcionarios = responseHttp.Response;
+    }
+    private void IrEditarPermisos(int id)
+    {
+        NavigationManager.NavigateTo($"/ingresoysalidacomputo/editar/{id}");
+    }
+    async void IrVerEImprimir(int id)
+    {
+        NavigationManager.NavigateTo($"/ingresoysalidacomputo/Ver/{id}");
+    }
+    //-------------------------------
+    private string searchString1 = "";
+    private bool FilterFunc1(IngresoySalida element) => FilterFunc(element, searchString1);
+    private bool FilterFunc(IngresoySalida element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Dependencia.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Codigo_bien.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Dependencia} {element.Codigo_bien}".Contains(searchString))
+            return true;
+        return false;
+    }
+}

@@ -109,14 +109,14 @@
             </table>
             <div style=" width:100%; display:flex; flex-direction:row;">
             <MudTextField T="String" HelperText="Nombre Vigilante De Turno"  Style=" width:40%; height:5px;" Disabled="true"/>
-            <MudIconButton Icon="@Icons.Filled.ExitToApp" Size="Size.Small" Color="Color.Error" @onclick="SalirAFormulario"/>
+            <MudIconButton Icon="@Icons.Filled.ExitToApp" Size="Size.Small" Color="Color.Error" @onclick="Salir"/>
             </div>
     </MudPaper>
 </div>
 @code {
     [Parameter] public int Id { get; set; }
     FormatoPermisos Funcionarios = new FormatoPermisos();
-    private void SalirAFormulario()
+    private void Salir()
     {
         navigationManager.NavigateTo("/indiceformatodesolicituddepermiso");
     }

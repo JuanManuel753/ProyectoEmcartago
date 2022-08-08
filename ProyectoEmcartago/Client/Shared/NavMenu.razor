@@ -11,6 +11,13 @@
             <MudNavLink  Href="usoepp/crear" Icon="@Icons.TwoTone.PersonAdd" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Crear Uso Epp</MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
+
+    <MudNavMenu Dense="true" Color="Color.Dark">
+        <MudNavGroup Title="E\S Equipos Computo" Expanded="false" Icon="@Icons.TwoTone.DynamicForm" IconColor="Color.Tertiary" Style="color:white;">
+            <MudNavLink Href="indiceingresoysalidacomputo" Icon="@Icons.TwoTone.AdminPanelSettings" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Indice E\S Equipos</MudNavLink>
+            <MudNavLink Href="ingresoysalidacomputo/crear" Icon="@Icons.TwoTone.PersonAdd" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Crear E\S De Computo</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
 </MudPaper>
 @code {
     private bool collapseNavMenu = true;

@@ -13,6 +13,8 @@ global using ProyectoEmcartago.Client.Mensajes.Alertas;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_Uso_Epp;
 global using System.Net.Http.Json;
 global using ProyectoEmcartago.Client.Repositorios.RepositorioUsoEpp;
+global using ProyectoEmcartago.Shared.Entidades.Entidad_Ingreso_y_Salida;
+global using ProyectoEmcartago.Client.Repositorios.RepositorioIngresoySalida;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -22,6 +24,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<IRepositorioPermisos, RepositorioPermisos>();
 builder.Services.AddScoped<IRepositorioUsoEpp, RepositorioUsoEpp>();
 builder.Services.AddScoped<IMostrarMensajes, MostrarMensajes>();
+builder.Services.AddScoped<IRepositorioIngresoySalida, RepositorioIngresoySalida>();
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

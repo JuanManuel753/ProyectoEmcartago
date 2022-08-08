@@ -17,5 +17,6 @@
         //usoEpp
         public DbSet<InspeccionUsoEpp> inspeccionUsoEpp { get; set; }
         public DbSet<Imagen_UsoEpp> Imagenes_UsoEpp { get; set; }
+        public DbSet<IngresoySalida> IngresoySalidaEquiposComputo { get; set; }
     }
 }

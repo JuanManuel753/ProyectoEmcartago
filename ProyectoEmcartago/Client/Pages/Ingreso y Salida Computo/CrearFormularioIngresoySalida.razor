@@ -1,0 +1,34 @@
+﻿@page "/ingresoysalidacomputo/crear"
+@inject IRepositorioIngresoySalida repositorio
+@inject NavigationManager NavigationManager
+@inject IMostrarMensajes mostrarMensajes
+
+
+
+<MudText Typo="Typo.h3" Style="display:flex; justify-content:center;">Crear entrada y salida de equipos de computo</MudText>
+
+<FormularioIngresoySalida OnValidSubmit="Crear" IngresoySalidaEquiposComputo="IngresoySalidaEquiposComputo" />
+
+
+
+
+
+@code {
+    MudMessageBox mboxVolver { get; set; }
+
+    private IngresoySalida IngresoySalidaEquiposComputo { get; set; } = new IngresoySalida();
+
+    async Task Crear()
+    {
+        await mostrarMensajes.MostrarMensajeExitoso("Entrada y Salida De Computo Creada");
+        await repositorio.Post(IngresoySalidaEquiposComputo);
+        Volver();
+    }
+
+    async Task Volver()
+    {
+        NavigationManager.NavigateTo("ingresoysalidacomputo/crear", true);
+    }
+
+    
+}

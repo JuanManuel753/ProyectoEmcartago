@@ -1,0 +1,221 @@
+﻿@inject NavigationManager NavigationManager
+<EditForm Model="IngresoySalidaEquiposComputo" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div style="display:flex; justify-content:center;">
+        <MudPaper Elevation="0" Class="py-8 px-10" Style="width:90%;">
+            @if(IngresoySalidaEquiposComputo.Id != 0)
+            {
+                <MudButton Style="margin-bottom:20px;" Variant="Variant.Filled" @onclick="Messageboxvolver" StartIcon="@Icons.Filled.ArrowBack" Color="Color.Info">Volver</MudButton>
+                <MudMessageBox @ref="mboxVolver" Title="Precaución!!!" CancelText="Cancelar">
+                    <MessageContent>
+                        ¿Seguro que desea volver?
+                    </MessageContent>
+                    <YesButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="Volver" StartIcon="@Icons.Material.Filled.ArrowBack">Confirmar</MudButton>
+                    </YesButton>
+                </MudMessageBox>
+            }
+            <div style="width:100%; display:flex; flex-wrap:wrap; margin-bottom:20px; margin-right:10px;">
+                <div style="flex-direction:column; flex-wrap:wrap; width:500px; margin:10px; ">
+                    <MudSelect @bind-Value="@IngresoySalidaEquiposComputo.Dependencia" T="string" For="@(() => IngresoySalidaEquiposComputo.Dependencia)" Label="Dependecia" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem T="string" Value="@("Gerencia")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Ases,Paneación Institucional")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Ases,Jurídica y Contratación")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Ases,SIGA - Control integral de la Gestión Administrativa")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Ases, Calidad y Medio Ambiente")" />
+                        <MudSelectItem T="string" Value="@("Lab.Calidad de Agua")" />
+                        <MudSelectItem T="string" Value="@("Comunicación e Imagen Corporativa")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Tecnologías y Sistemas de Información")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Control Disciplinario Interno")" />
+                        <MudSelectItem T="string" Value="@("Sub gcia.Técnica y Operativa")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Acueducto y Alcantarillado")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Normalización de Servicios")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Eléctrica")" />
+                        <MudSelectItem T="string" Value="@("Sub gcia.Administrativa y de Talento Humano")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Talento Humano")" />
+                        <MudSelectItem T="string" Value="@("Recursos Físicos")" />
+                        <MudSelectItem T="string" Value="@("Archivo y Correspondencia")" />
+                        <MudSelectItem T="string" Value="@("Sub gcia.Financiera")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Comercial")" />
+                        <MudSelectItem T="string" Value="@("Facturación")" />
+                        <MudSelectItem T="string" Value="@("Cartera")" />
+                        <MudSelectItem T="string" Value="@("Atención al Ciudadano")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Presupuesto y Costos")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Contabilidad")" />
+                        <MudSelectItem T="string" Value="@("Ofic.Tesorería")" />
+                    </MudSelect>
+                </div>
+
+                <MudTextField Style="margin:10px;" For="@(() => IngresoySalidaEquiposComputo.Lugar)" Label="Lugar" @bind-Value="@IngresoySalidaEquiposComputo.Lugar" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudDatePicker Style="margin:10px;" Label="Fecha de salida" @bind-Date="@IngresoySalidaEquiposComputo.Fecha_salida" For="@(() => IngresoySalidaEquiposComputo.Fecha_salida)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudDatePicker Style="margin:10px;" Label="Fecha de entrada" @bind-Date="@IngresoySalidaEquiposComputo.Fecha_entrada" For="@(() => IngresoySalidaEquiposComputo.Fecha_entrada)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudTextField Style="margin:10px;" For="@(() => IngresoySalidaEquiposComputo.Codigo_bien)" Label="Codigo de bien" @bind-Value="@IngresoySalidaEquiposComputo.Codigo_bien" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudTextField Style="margin:10px;" Label="Marca" @bind-Value="@IngresoySalidaEquiposComputo.Marca" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudTextField Style="margin:10px;" Label="Modelo" @bind-Value="@IngresoySalidaEquiposComputo.Modelo" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudTextField Style="margin:10px;" Label="N° de serie" @bind-Value="@IngresoySalidaEquiposComputo.N_serie" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudTextField Style="margin:10px; " For="@(() => IngresoySalidaEquiposComputo.Destino)" Label="Destino" @bind-Value="@IngresoySalidaEquiposComputo.Destino" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+                <MudTextField Style="margin:10px; " For="@(() => IngresoySalidaEquiposComputo.Persona_que_se_Autoriza)" Label="Persona a quien se autoriza" @bind-Value="@IngresoySalidaEquiposComputo.Persona_que_se_Autoriza" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+
+
+                <div style="flex-direction:column; flex-wrap:wrap; width:450px; margin:10px; ">
+                    <MudSelect @bind-Value="@IngresoySalidaEquiposComputo.Jefe_que_Autoriza" T="string" For="@(() => IngresoySalidaEquiposComputo.Jefe_que_Autoriza)" Label="Jefe que autoriza" Margin="Margin.Dense" Variant="Variant.Outlined" AnchorOrigin="Origin.BottomCenter">
+                        <MudSelectItem T="string" Value="@("Carlos Abad Moreno")" />
+                        <MudSelectItem T="string" Value="@("Mauricio Toro")" />
+                        <MudSelectItem T="string" Value="@("Delgado Hernández Zaida")" />
+                        <MudSelectItem T="string" Value="@("Angela María García")" />
+                        <MudSelectItem T="string" Value="@("Natalia García Moreno")" />
+                        <MudSelectItem T="string" Value="@("Evelin Johana Hernández Hoyos")" />
+                        <MudSelectItem T="string" Value="@("Jorge Alirio Vergara Rincón")" />
+                        <MudSelectItem T="string" Value="@("Luis Fernando Uchima")" />
+                        <MudSelectItem T="string" Value="@("Juliana Galvis Aldana")" />
+                        <MudSelectItem T="string" Value="@("William Echeverri Londoño")" />
+                        <MudSelectItem T="string" Value="@("Teresa Gallo Bedoya")" />
+                        <MudSelectItem T="string" Value="@("Carlos Andrés Buitrago")" />
+                        <MudSelectItem T="string" Value="@("Ricardo Andrés Ching Álvarez")" />
+                        <MudSelectItem T="string" Value="@("Arturo Marulanda Cano")" />
+                        <MudSelectItem T="string" Value="@("Oscar Julián Arias Rojas")" />
+                        <MudSelectItem T="string" Value="@("Alexander Arce")" />
+                        <MudSelectItem T="string" Value="@("Claudia Soto")" />
+                        <MudSelectItem T="string" Value="@("Juan Carlos Moncaleano Rayo")" />
+                        <MudSelectItem T="string" Value="@("Tania Paola Hincapié Patiño")" />
+                        <MudSelectItem T="string" Value="@("Marco Aurelio Esquivel")" />
+                        <MudSelectItem T="string" Value="@("Juan David Piedrahita López")" />
+                    </MudSelect>
+                </div>
+
+
+                <div style="width:100%; display:flex; flex-wrap:wrap; ">
+
+
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Mantenimiento y/o Reparación</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.Mantenimiento_y_o_Reparacion" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Prestamo</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.Prestamo" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Devolución</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.Devolucion" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Por ser de su propiedad</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.De_su_propiedad" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Transferencia</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.Tranferencia" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Despacho</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.Despacho" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Realizar un trabajo</label>
+                        <InputCheckbox @bind-Value="@IngresoySalidaEquiposComputo.Realizar_trabajo" />
+                    </div>
+                    <div style="width:150px;  height:50px; margin:5px; text-align:center;">
+                        <label>Otros</label>
+                        <InputCheckbox @bind-Value="@Otro_value" />
+                    </div>
+
+
+                    @if (IngresoySalidaEquiposComputo.Mantenimiento_y_o_Reparacion | IngresoySalidaEquiposComputo.Prestamo | IngresoySalidaEquiposComputo.Devolucion | IngresoySalidaEquiposComputo.De_su_propiedad | IngresoySalidaEquiposComputo.Tranferencia | IngresoySalidaEquiposComputo.Despacho | IngresoySalidaEquiposComputo.Realizar_trabajo | Otro_value == true)
+                    {
+
+
+                    }
+                    else
+                    {
+                        <MudAlert Severity="Severity.Warning">Porfavor seleccione una opcion</MudAlert>
+                    }
+
+                </div>
+
+                @if (Otro_value == true)
+                {
+                    <div style="width:500px;  height:50px; margin-bottom:20px;">
+                        <MudTextField Label="Otros" @bind-Value="@IngresoySalidaEquiposComputo.Otros" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+                    </div>
+                }
+                else
+                {
+
+                }
+
+
+                <div style="width:100%; display:flex; flex-wrap:wrap; justify-content:space-evenly;">
+                    <div style="margin-bottom:10px;">
+                        <h5>Solicitado por:</h5>
+                        <MudTextField For="@(() => IngresoySalidaEquiposComputo.Solicitado_por)" Style="margin-bottom:10px;" Placeholder="Solicitado por:" @bind-Value="@IngresoySalidaEquiposComputo.Solicitado_por" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+                        <MudDatePicker Style="margin:10px; width:150px;" Label="Fecha" @bind-Date="@IngresoySalidaEquiposComputo.fecha_Solicitado_por" For="@(() => IngresoySalidaEquiposComputo.fecha_Solicitado_por)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+                        <MudTimePicker For="@(() => IngresoySalidaEquiposComputo.hora_Solicitado_por)" Label="Hora" Placeholder="Seleccione una hora" AmPm="true" @bind-Time="@IngresoySalidaEquiposComputo.hora_Solicitado_por" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" />
+                    </div>
+                    <div>
+                        <h5>Autorizado por:</h5>
+                        <MudTextField For="@(() => IngresoySalidaEquiposComputo.Autorizado_por)" Style="margin-bottom:10px;" Placeholder="Autorizado por:" @bind-Value="@IngresoySalidaEquiposComputo.Autorizado_por" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+                        <MudDatePicker Style="margin:10px; width:150px;" Label="Fecha" @bind-Date="@IngresoySalidaEquiposComputo.fecha_Autorizado_por" For="@(() => IngresoySalidaEquiposComputo.fecha_Solicitado_por)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12" />
+                        <MudTimePicker For="@(() => IngresoySalidaEquiposComputo.hora_Autorizado_por)" Label="Hora" Placeholder="Seleccione una hora" AmPm="true" @bind-Time="@IngresoySalidaEquiposComputo.hora_Autorizado_por" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" />
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                @if (IngresoySalidaEquiposComputo.Id != 0)
+                {
+                    <MudRadioGroup T="bool" @bind-SelectedOption="IngresoySalidaEquiposComputo.IsDelete">
+                        <MudRadio Option="false" Color="Color.Success">Guardado</MudRadio>
+                        <MudRadio Option="true" Color="Color.Error">Eliminar</MudRadio>
+                    </MudRadioGroup>
+                }
+                @*alerta de eliminar*@
+                @if (IngresoySalidaEquiposComputo.IsDelete == true)
+                {
+
+                    <MudAlert Icon="@Icons.TwoTone.WarningAmber" Severity="Severity.Error" Dense="true" Style="width:500px;" Class="my-2">Eliminar Seleccionado, Si Guarda El Formato De Ingreso/Salida  El Registro Sera Eliminado</MudAlert>
+                }
+
+            </div>
+
+            @if (IngresoySalidaEquiposComputo.Mantenimiento_y_o_Reparacion | IngresoySalidaEquiposComputo.Prestamo | IngresoySalidaEquiposComputo.Devolucion | IngresoySalidaEquiposComputo.De_su_propiedad | IngresoySalidaEquiposComputo.Tranferencia | IngresoySalidaEquiposComputo.Despacho | IngresoySalidaEquiposComputo.Realizar_trabajo | Otro_value == true)
+            {
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" EndIcon="@Icons.Rounded.Save">Guardar</MudButton>
+            }
+            else
+            {
+
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Error" EndIcon="@Icons.Rounded.Save" Disabled="true">Guardar</MudButton>
+
+            }
+        </MudPaper>
+    </div>
+</EditForm>
+@code {
+    bool Otro_value = false;
+    [Parameter] public IngresoySalida IngresoySalidaEquiposComputo { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    MudMessageBox mboxVolver { get; set; }
+
+    private async void Messageboxvolver()
+    {
+        string state = "Message box hasn't been opened yet";
+        bool? result = await mboxVolver.Show();
+        state = result == null ? "Cancelled" : "Deleted!";
+        StateHasChanged();
+    }
+    async Task Volver()
+    {
+        NavigationManager.NavigateTo("indiceingresoysalidacomputo");
+    }
+}

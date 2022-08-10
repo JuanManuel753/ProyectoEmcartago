@@ -4,7 +4,9 @@ global using ProyectoEmcartago.Shared.Entidades.Entidad_Formato_De_Permisos;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_Uso_Epp;
 global using ProyectoEmcartago.Server.Data;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_Ingreso_y_Salida;
-
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using ProyectoEmcartago.Shared.Entidades.Entidad_PEDSYP;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

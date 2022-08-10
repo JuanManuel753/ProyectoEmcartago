@@ -15,6 +15,8 @@ global using System.Net.Http.Json;
 global using ProyectoEmcartago.Client.Repositorios.RepositorioUsoEpp;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_Ingreso_y_Salida;
 global using ProyectoEmcartago.Client.Repositorios.RepositorioIngresoySalida;
+global using ProyectoEmcartago.Shared.Entidades.Entidad_PEDSYP;
+global using ProyectoEmcartago.Client.Repositorios.RepositorioPEDSYP;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -23,8 +25,9 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<IRepositorioPermisos, RepositorioPermisos>();
 builder.Services.AddScoped<IRepositorioUsoEpp, RepositorioUsoEpp>();
-builder.Services.AddScoped<IMostrarMensajes, MostrarMensajes>();
 builder.Services.AddScoped<IRepositorioIngresoySalida, RepositorioIngresoySalida>();
+builder.Services.AddScoped<IRepositorioPEDSYP, RepositorioPEDSYP>();
+builder.Services.AddScoped<IMostrarMensajes, MostrarMensajes>();
 builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

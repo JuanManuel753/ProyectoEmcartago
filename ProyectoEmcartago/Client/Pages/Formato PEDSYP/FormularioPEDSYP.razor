@@ -1,0 +1,657 @@
+﻿@inject NavigationManager NavigationManager
+
+<EditForm Model="Info_registro" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div style="display:flex; flex-direction:column; overflow: auto; ">
+        <div>
+        @if(Info_registro.Id != 0)
+            {
+                <MudButton Style="margin-top:10px; margin-bottom:10px; margin-right:10px;" Variant="Variant.Filled" @onclick="Messageboxvolver" StartIcon="@Icons.Filled.ArrowBack" Color="Color.Info">Volver</MudButton>
+                <MudMessageBox @ref="mboxVolver" Title="Precaución!!!" CancelText="Cancelar">
+                    <MessageContent>
+                        ¿Seguro que desea volver?
+                    </MessageContent>
+                    <YesButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Warning" OnClick="Volver" StartIcon="@Icons.Material.Filled.ArrowBack">Confirmar</MudButton>
+                    </YesButton>
+                </MudMessageBox>
+            }
+            </div>
+        <div class="d-flex flex-wrap " style="margin-bottom:30px; width:100%;">
+            <MudTextField Style="width:100%;" @bind-Value="@Info_registro.Marca" Label="Marca"  Variant="Variant.Outlined" For="@(() => Info_registro.Marca)"></MudTextField>
+            <MudTextField Style="width:100%;" @bind-Value="@Info_registro.Modelo" Label="Modelo" Variant="Variant.Outlined" For="@(() => Info_registro.Modelo)"></MudTextField>
+            <MudTextField Style="width:100%;" @bind-Value="@Info_registro.Placa_Vehiculo" Label="Placa vehiculo" Variant="Variant.Outlined" For="@(() => Info_registro.Placa_Vehiculo)"></MudTextField>
+            <MudTextField Style="width:100%;" @bind-Value="@Info_registro.Dependencia" Label="Dependecia" Variant="Variant.Outlined" For="@(() => Info_registro.Dependencia)"></MudTextField>
+            <MudTextField Style="width:100%;" @bind-Value="@Info_registro.Conductor" Label="Conductor" Variant="Variant.Outlined" For="@(() => Info_registro.Conductor)"></MudTextField>
+            
+            @if(Info_registro.Id == 0){
+               <div style="width:100%; margin-top:20px;" class="d-flex justify-content-start ">
+                <input type="date" id="start" name="trip-start" style="width:200px; height:50px; border:1px solid grey; border-radius:5px; padding-right:10px; padding-left:10px;" @bind-value="@Info_registro.Fecha_Revision" disabled="true">
+            </div>
+            }else{
+                <div style="width:100%; margin-top:20px;" class="d-flex justify-content-start ">
+                <input type="date" id="start" name="trip-start" style="width:200px; height:50px; border:1px solid grey; border-radius:5px; padding-right:10px; padding-left:10px;" @bind-value="@Info_registro.Fecha_Revision" >
+                </div>
+                <div style="width:100%; margin-top:20px;" class="d-flex justify-content-start flex-column">
+                 @*borrado solo aparece cuando esta editando*@
+                 @if (Info_registro.Id != 0)
+                    {
+                    <MudRadioGroup T="bool" @bind-SelectedOption="Info_registro.Isdelete">
+                            <MudRadio Option="false" Color="Color.Success">Guardado</MudRadio>
+                            <MudRadio Option="true" Color="Color.Error">Eliminar</MudRadio>
+                    </MudRadioGroup>
+                        Console.WriteLine(Info_registro.Isdelete);
+                    }
+                    @*alerta de eliminar*@
+                    @if(Info_registro.Isdelete == true)
+                    {
+                        
+                       <MudAlert Icon="@Icons.TwoTone.WarningAmber" Severity="Severity.Error" Dense="true" Style="width:500px;" Class="my-2">Eliminar Seleccionado, Si Guarda El Formato De Permiso Sera Eliminado</MudAlert>     
+                    }
+            </div>
+            }   
+        </div>
+        @*Documentos del vehiculo*@
+        <h2 style="text-align:center;">Documentos</h2>
+        <div class="d-flex align-content-center flex-wrap" style="width:100%; border:solid 1px grey; border-radius: 25px; padding:5px; margin-bottom:20px; background:#D6D7E9;">
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h7 style="text-align:center; border-bottom:solid 1px grey;">Licencia de Condución</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.licencia_de_conduccion" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.licencia_de_conduccion_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px;  height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h7 style="text-align:center; border-bottom:solid 1px grey;">Tarjeta de propiedad</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Tarjeta_de_propiedad" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <h7 style="text-align:center;">Vencimiento</h7>
+                <input type="date" id="start" name="trip-start" style="width:200px; height:35px; border:1px solid grey; border-radius:5px; padding-right:10px; padding-left:10px;" @bind-value="@Info_registro.Vencimiento_TP">
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Tarjeta_de_propiedad_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px;  height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h7 style="text-align:center; border-bottom:solid 1px grey;">SOAT</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Soat" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <h7 style="text-align:center;">Vencimiento</h7>
+                <input type="date" id="start" name="trip-start" style="width:200px; height:35px; border:1px solid grey; border-radius:5px; padding-right:10px; padding-left:10px;" @bind-value="@Info_registro.Vencimiento_S">
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Soat_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px;  height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h7 style="text-align:center; border-bottom:solid 1px grey;">Certificado revisión tecnico-mecanica</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Tecno_mecanica" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <h7 style="text-align:center;">Vencimiento</h7>
+                <input type="date" id="start" name="trip-start" style="width:200px; height:35px; border:1px solid grey; border-radius:5px; padding-right:10px; padding-left:10px;" @bind-value="@Info_registro.Vencimiento_TM">
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Tecno_mecanica_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+        </div>
+
+        @*------------------------------------------------------------------------------------------------*@
+
+        @*CABINA*@
+        <h2 style="text-align:center;">Cabina</h2>
+        <div class="d-flex align-content-center flex-wrap" style="width:100%; border:solid 1px grey; border-radius: 25px; padding:5px; margin-bottom:20px; background:#D6D7E9;">
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Puertas</h6>
+                <h7 style="text-align:center;">Estado, sistema de cierre y ajuste del seguro</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Puertas" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Puertas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Manijas</h6>
+                <h7 style="text-align:center;">Estado, sujecíón, facilidad de agarre</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Manijas" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Manijas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Silla</h6>
+                <h7 style="text-align:center;">Estado</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Silla">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Silla_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Espejos</h6>
+                <h7 style="text-align:center;">Estado(Lunas, opaco, sin espejo, reventado)</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Espejos" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Espejos_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Tablero</h6>
+                <h7 style="text-align:center;">Funcionamiento de tablero de instrumentos</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Tablero">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Tablero_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Parabrisas y ventanas</h6>
+                <h7 style="text-align:center;">Estado de vidrios, funcionamiento de plumillas</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Parabrisas_Ventanas" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Parabrisas_Ventanas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Cinturón de seguridad</h6>
+                <h7 style="text-align:center;">Estado</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Cinturon_Seguridad" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Cinturon_Seguridad_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:230px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Sistema de comunicación</h6>
+                <h7 style="text-align:center;">Estado de radio de comunicaciones</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Sist_Comunicacion" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Puertas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+        </div>
+
+
+        @*------------------------------------------------------------------------------------------------*@
+
+        @*Sistema electrico*@
+        <h2 style="text-align:center;">Sistema electrico</h2>
+        <div class="d-flex align-content-center flex-wrap" style="width:100%; border:solid 1px grey; border-radius: 25px; padding:5px; margin-bottom:20px; background:#D6D7E9;">
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Luces*@
+                <h4 style="text-align:center;">Luces</h4>
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Frontales de servicio(altas y bajas)</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Altas_y_bajas" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Altas_y_bajas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Traseras de trabajo(reflector)</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Tracera_de_trabajo" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Tracera_de_trabajo_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Direccionales delanteras de parqueo</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Direccionales_delanteras_p" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Direccionales_delanteras_p_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Direccionales traseras de parqueo</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Direccionales_traseras_p">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Direccionales_traseras_p_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Stop</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Stop">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Stop_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Estroboscopicas</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Estroboscopicas">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estroboscopicas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Luces de réversa</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Luces_reversa">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Luces_reversa_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Pito</h6>
+                <h7 style="text-align:center;">Funcionamiento</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Funcionamiento_pito" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Funcionamiento_pito_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Alarma de retroceso</h6>
+                <h7 style="text-align:center;">Funcionamiento alarma y camara</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Funcionamiento_alarma_y_camara">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Funcionamiento_alarma_y_camara_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Bateria*@
+                <h4 style="text-align:center;">Bateria</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Ajustes de bornes</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Ajustes_bornes_bateria" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Ajustes_bornes_bateria_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Tapas</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Tapas_bateria" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Tapas_bateria_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        @*------------------------------------------------------------------------------------------------*@
+
+        @*Sistema tecnico-mecanico*@
+        <h2 style="text-align:center;">Sistema tecnico-mecanico</h2>
+        <div class="d-flex align-content-center flex-wrap" style="width:100%; border:solid 1px grey; border-radius: 25px; padding:5px; margin-bottom:20px; background:#D6D7E9;">
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Frenos*@
+                <h4 style="text-align:center;">Frenos</h4>
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Estado de frenos</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_de_frenos" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_de_frenos_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Revión practica frenos, transmision y embrague</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Revisión_practica_frenos_transmision_y_embrague" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Revisión_practica_frenos_transmision_y_embrague_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Drenar tanques de aire</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Drenar_tanques_aire" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Drenar_tanques_aire_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Revise el sistema del secador de aire</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Revise_el_sistema_del_secador_de_aire">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Revise_el_sistema_del_secador_de_aire_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Freno de ahogo</h6>
+                <h7 style="text-align:center;">Estado de frenos</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_de_freno_de_ahogo">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_de_freno_de_ahogo_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Motor*@
+                <h4 style="text-align:center;">Motor</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Ruido</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Ruido_motor">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Ruido_motor_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Estado y tensión de correas</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_y_tensión_de_correas">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_y_tensión_de_correas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Sin fugas de fluidos por mangeras / accesorios</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Sin_fugas_de_fluidos_por_mangueras_accesorios" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Sin_fugas_de_fluidos_por_mangueras_accesorios_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Niveles de Fuidos*@
+                <h4 style="text-align:center;">Niveles de Fuidos</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Nivel de aceite de motor</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_aceite_de_motor" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_aceite_de_motor_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Niveles aceite de dirección</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_aceite_de_direccion" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_aceite_de_direccion_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Niveles de aceite caja de velocidades</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_aceite_de_caja_velocidades" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_aceite_de_caja_velocidades_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Niveles de aceite de transmisión</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_aceite_de_transmision" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_aceite_de_transmision_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Niveles de aceite de ruedas delanteras</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_aceite_de_ruedas_delanteras" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_aceite_de_ruedas_delanteras_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Niveles de refrigerante</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_de_refrigerante" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_de_refrigerante_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Niveles de limpiabrisas</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Nivel_de_limpiabrisas" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Nivel_de_limpiabrisas_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Tanque de combustible*@
+                <h4 style="text-align:center;">Tanque de combustible</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Drenar filtro</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Drenarfiltro" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Drenarfiltro_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Estado, presencia de la tapa, sin goteo o fugas</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Estad_presencia_de_tapa_sin_goteo_fugas_TC" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estad_presencia_de_tapa_sin_goteo_fugas_TC_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Tanque de urea*@
+                <h4 style="text-align:center;">Tanque de urea</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Verificar nivel y conexion electrica</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Verificar_nivel_conexion_electrica" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Verificar_nivel_conexion_electrica_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Estado, presencia de la tapa, sin goteo o fugas</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Estad_presencia_de_tapa_sin_goteo_fugas_TU" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estad_presencia_de_tapa_sin_goteo_fugas_TU_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Filtros</h6>
+                <h7 style="text-align:center;">Estado, ajuste de tapas de filtros</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_ajuste_tapa_filtros" >
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_ajuste_tapa_filtros_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Llantas*@
+                <h4 style="text-align:center;">Llantas</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Estado, abullamientos, cortes o desgastes</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_abullamientos_cortes_desgastes" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_abullamientos_cortes_desgastes_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Presión</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Precion" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Precion_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        @*------------------------------------------------------------------------------------------------*@
+
+        @*Succión*@
+        <h2 style="text-align:center;">Succión</h2>
+        <div class="d-flex align-content-center flex-wrap" style="width:100%; border:solid 1px grey; border-radius: 25px; padding:5px; margin-bottom:20px; background:#D6D7E9;">
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Sistema hidraulico Brazo del boom*@
+                <h4 style="text-align:center;">Sistema hidraulico<br /> Brazo del boom</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Bomba hidráulica</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Bomba_hidráulica" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Bomba_hidráulica_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Mangeras, tubos, conexiones y racores</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Mangueras_tubos_conexiones_racores" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Mangueras_tubos_conexiones_racores_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Cilindros de levante del brazo del boom</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Cilindros_de_levante_del_brazo_del_boom" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Cilindros_de_levante_del_brazo_del_boom_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Cilindros de movimientos laterales</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Cilindros_de_movimientos_laterales">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Cilindros_de_movimientos_laterales_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Cilindros de extension del brazo</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Cilindro_de_extension_del_brazo" >
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Cilindro_de_extension_del_brazo_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Controles</h6>
+                <h7 style="text-align:center;">Estado general de controles en cabina, carretel frontal, laterales y pantalla intelliview</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.EGCCCSFLPI">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.EGCCCSFLPI_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Manguera de succión</h6>
+                <h7 style="text-align:center;">Estado</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_Manguera">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_Manguera_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                <h6 style="border-bottom:solid 1px grey;">Tuberias de succión</h6>
+                <h7 style="text-align:center;">Estado y verificar la cantidad (7)</h7>
+                <MudRadioGroup @bind-SelectedOption="@Info_registro.Estado_Verificar_cantidad">
+                    <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                    <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                </MudRadioGroup>
+                <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Estado_Verificar_cantidad_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+            </div>
+
+            <div class="d-flex justify-content-center align-items-center flex-column" style="width:100%; height:auto; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                @*Sistema hidraulico Brazo del boom*@
+                <h4 style="text-align:center;">Bomba de desplazamiento positivo</h4>
+
+                <div class="d-flex align-content-center flex-wrap" style="width:100%; padding:5px; margin-bottom:20px;">
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">Revision y limpieza de tamiz</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Revision_verificar_de_tamiz">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Revision_verificar_de_tamiz_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center flex-column" style="width:220px; height:220px; margin:10px; border:solid 1px grey; border-radius: 25px; padding:5px;">
+                        <h7 style="text-align:center;">verificación de nivel de aceite</h7>
+                        <MudRadioGroup @bind-SelectedOption="@Info_registro.Verificacion_de_nivel_aceite">
+                            <MudRadio Option="@("Bueno")" Color="Color.Primary">Bueno</MudRadio>
+                            <MudRadio Option="@("Malo")" Color="Color.Secondary">Malo</MudRadio>
+                        </MudRadioGroup>
+                        <MudTextField T="string" Label="Observaciones" @bind-Value="@Info_registro.Verificacion_de_nivel_aceite_observacion" Variant="Variant.Filled" Lines="1" Style="width:auto; height:50px; background:white; " />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Success" EndIcon="@Icons.Rounded.Save">Guardar</MudButton>
+</EditForm>
+@code{
+    [Parameter] public PEDSYP Info_registro { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    MudMessageBox mboxVolver { get; set; }
+
+    private async void Messageboxvolver()
+    {
+        string state = "Message box hasn't been opened yet";
+        bool? result = await mboxVolver.Show();
+        state = result == null ? "Cancelled" : "Deleted!";
+        StateHasChanged();
+    }
+    async Task Volver()
+    {
+        NavigationManager.NavigateTo("indicepedsyp");
+    }
+}

@@ -1,0 +1,100 @@
+﻿@page "/indicepedsyp"
+@inject IRepositorioPEDSYP repositorio
+@inject NavigationManager navigationManager
+<ListadoGenerico Listado="Funcionarios">
+    <HayRegistrosCompleto>
+        <MudTable Items="Funcionarios" Dense="@dense" Hover="@hover" Bordered="@bordered" Filter="new Func<PEDSYP,bool>(FilterFunc1)">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Indice Lista PEDSYP</MudText>
+                <MudButton Disabled="@_processing" Style="margin-left:30px;" Variant="Variant.Filled" Color="Color.Success" Size="Size.Large" EndIcon="@Icons.TwoTone.AddCircle" @onclick="CrearPermisos">
+                @if (_processing)
+                {
+                    <MudProgressCircular Class="ms-n1" Size="Size.Medium" Indeterminate="true"/>
+                    <MudText Class="ms-2">Reedirigiendo</MudText>
+                }
+                else
+                {
+                    <MudText>Nuevo Permiso</MudText>
+                }
+                </MudButton>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Conductor --- Placa Vehiculo" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.PersonSearch" AdornmentColor="Color.Primary" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh>Id Registro</MudTh>
+                <MudTh>Marca</MudTh>
+                <MudTh>Modelo</MudTh>
+                <MudTh>Placa de Vehículo</MudTh>
+                <MudTh>Dependencia</MudTh>
+                <MudTh>Fecha de Revisión</MudTh>
+                <MudTh>Conductor</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <MudIconButton @onclick="@(() => IrEditarPermisos(context.Id))" Icon="@Icons.TwoTone.EditNote" Color="Color.Primary"/>
+                </MudTd>
+                <MudTd>@context.Id</MudTd>
+                <MudTd>@context.Marca</MudTd>
+                <MudTd>@context.Modelo</MudTd>
+                <MudTd>@context.Placa_Vehiculo</MudTd>
+                <MudTd>@context.Dependencia</MudTd>
+                <MudTd>@context.Fecha_Revision</MudTd>
+                <MudTd>@context.Conductor</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager Style="display: flex; flex-wrap: wrap;justify-content:center; text-align:center;" PageSizeOptions="new int[] {15,25,50,75,100,150,200}" RowsPerPageString="Paginacion" InfoFormat="{first_item}-{last_item} Total: {all_items}" />
+            </PagerContent>
+        </MudTable>
+    </HayRegistrosCompleto>
+</ListadoGenerico>
+@code {
+
+    public List<PEDSYP> Funcionarios { get; set; }
+    private bool _processing = false; //button
+    protected async override Task OnInitializedAsync()
+    {
+        await Cargar();
+    }
+
+    private async Task Cargar()
+    {
+        var responseHttp = await repositorio.Get<List<PEDSYP>>("api/PEDSYP");
+        Funcionarios = responseHttp.Response;
+    }
+
+    private void IrEditarPermisos(int id)
+    {
+        navigationManager.NavigateTo($"pedsyp/editar/{id}");
+    }
+
+    async void CrearPermisos()
+    {
+        _processing = true;
+        await Task.Delay(1000);
+        _processing = false;
+        navigationManager.NavigateTo("pedsyp/crear"); 
+    }
+    
+
+    private bool dense = true;
+    private bool hover = true;
+    private bool bordered = true;
+    private HashSet<PEDSYP> selectedItems = new HashSet<PEDSYP>();
+
+    //buscador
+    private string searchString1 = "";
+    private bool FilterFunc1(PEDSYP element) => FilterFunc(element, searchString1);
+    private bool FilterFunc(PEDSYP element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Conductor.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Placa_Vehiculo.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Conductor} {element.Placa_Vehiculo}".Contains(searchString))
+            return true;
+        return false;
+    }
+}

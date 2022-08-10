@@ -1,0 +1,24 @@
+﻿@page "/pedsyp/crear"
+@inject IRepositorioPEDSYP repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensajes
+
+<FormularioPEDSYP OnValidSubmit="Crear" Info_registro="Info_registro"/>
+
+@code {
+    public PEDSYP Info_registro { get; set; } = new PEDSYP();
+
+    async Task Crear()
+    {
+        var httpResponse = await repositorio.Post("api/PEDSYP", Info_registro);
+        if (httpResponse.Error)
+        {
+           await mostrarMensajes.MostrarMensajeError(await httpResponse.GetBody());
+        }
+        else
+        {
+            await mostrarMensajes.MostrarMensajeExitoso("Formato PEDSYP Creado exitosamente");
+            navigationManager.NavigateTo("pedsyp/crear", true);
+        }
+    }
+}

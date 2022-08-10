@@ -18,6 +18,14 @@
             <MudNavLink Href="ingresoysalidacomputo/crear" Icon="@Icons.TwoTone.PersonAdd" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Crear E\S De Computo</MudNavLink>
         </MudNavGroup>
     </MudNavMenu>
+
+    <MudNavMenu Dense="true" Color="Color.Dark">
+        <MudNavGroup Title="Formato PEDSYP" Expanded="false" Icon="@Icons.TwoTone.DynamicForm" IconColor="Color.Tertiary" Style="color:white;">
+            <MudNavLink Href="indicepedsyp" Icon="@Icons.TwoTone.AdminPanelSettings" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Indice Formato PEDSYP</MudNavLink>
+            <MudNavLink Href="pedsyp/crear" Icon="@Icons.TwoTone.PersonAdd" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Crear Formato PEDSYP</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+
 </MudPaper>
 @code {
     private bool collapseNavMenu = true;

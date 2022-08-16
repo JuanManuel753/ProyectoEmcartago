@@ -1,0 +1,182 @@
+﻿<EditForm Model="registrosEpp" OnValidSubmit="OnValidSubmit">
+    <DataAnnotationsValidator />
+    <div style="display:flex; justify-content:center;">
+        <MudPaper Elevation="0" Class="py-8 px-10" Style="width:90%;">
+            <div style="display:flex; flex-wrap:wrap; ">
+                <div class="d-flex flex-wrap " style="margin-bottom:30px; width:100%;">
+                    <MudTextField Style="margin:10px;" @bind-Value="@registrosEpp.Nombre_Funcionario" For="@(() => registrosEpp.Nombre_Funcionario)" Label="Nombre Del Funcionario" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12"></MudTextField>
+                    <MudTextField Style="margin:10px;" @bind-Value="@registrosEpp.Cedula" For="@(() => registrosEpp.Cedula)" Label="Cedula" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12"></MudTextField>
+                    <MudDatePicker Style="margin:10px;" Label="Fecha de registro" @bind-Date="@registrosEpp.Fecha_Registro" For="@(() => registrosEpp.Fecha_Registro)" Variant="Variant.Outlined" Margin="Margin.Dense" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" />
+                    <MudTextField Style="margin:10px;" @bind-Value="@registrosEpp.Cargo" For="@(() => registrosEpp.Cargo)" Label="Cargo" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12"></MudTextField>
+
+
+                    <MudSelect Style="margin:10px;" @bind-Value="@registrosEpp.Oficina" T="string" Label="Oficina" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12">
+                        <MudSelectItem T="string" Value="@("Gerencia")" />
+                        <MudSelectItem T="string" Value="@("Paneación Institucional")" />
+                        <MudSelectItem T="string" Value="@("Jurídica y Contratación")" />
+                        <MudSelectItem T="string" Value="@("SIGA - Control integral de la Gestión Administrativa")" />
+                        <MudSelectItem T="string" Value="@("Calidad y Medio Ambiente")" />
+                        <MudSelectItem T="string" Value="@("Lab. Calidad de Agua")" />
+                        <MudSelectItem T="string" Value="@("Comunicación e Imagen Corporativa")" />
+                        <MudSelectItem T="string" Value="@("Tecnologías y Sistemas de Información")" />
+                        <MudSelectItem T="string" Value="@("Control Disciplinario Interno")" />
+                        <MudSelectItem T="string" Value="@("SubgerenciaTécnica y Operativa")" />
+                        <MudSelectItem T="string" Value="@("Acueducto y Alcantarillado")" />
+                        <MudSelectItem T="string" Value="@("Normalización de Servicios")" />
+                        <MudSelectItem T="string" Value="@("Eléctrica")" />
+                        <MudSelectItem T="string" Value="@("Subgerencia.Administrativa y de Talento Humano")" />
+                        <MudSelectItem T="string" Value="@("Talento Humano")" />
+                        <MudSelectItem T="string" Value="@("Recursos Físicos")" />
+                        <MudSelectItem T="string" Value="@("Archivo y Correspondencia")" />
+                        <MudSelectItem T="string" Value="@("Subgerencia.Financiera")" />
+                        <MudSelectItem T="string" Value="@("Comercial")" />
+                        <MudSelectItem T="string" Value="@("Facturación")" />
+                        <MudSelectItem T="string" Value="@("Cartera")" />
+                        <MudSelectItem T="string" Value="@("Atención al Ciudadano")" />
+                        <MudSelectItem T="string" Value="@("Presupuesto y Costos")" />
+                        <MudSelectItem T="string" Value="@("Contabilidad")" />
+                        <MudSelectItem T="string" Value="@("Tesorería")" />
+                    </MudSelect>
+
+
+
+                    <MudTextField Style="margin:10px;" @bind-Value="@registrosEpp.Cantidad" For="@(() => registrosEpp.Cantidad)" Label="Cantidad" Margin="Margin.Dense" Variant="Variant.Outlined" AdornmentColor="Color.Primary" Editable="true" Color="Color.Secondary" Elevation="12"></MudTextField>
+                </div>
+
+                <div style="width:100%; display:flex; flex-wrap:wrap; ">
+
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>GA</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.GA" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>CA</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.CA" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>GU</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.GU" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>BS</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.BS" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>CHS</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.CHS" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>TO</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.TO" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>TB</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.TB" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>IMP</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.IMP" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>EPG</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.EPG" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>AMD</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.AMD" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>LVV</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.LVV" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>AR</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.AR" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>EA</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.EA" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>M</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.M" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>O</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.O" />
+                    </div>
+                    <div style="width:50px;  height:20px; margin:5px;">
+                        <label>F</label>
+                        <InputCheckbox @bind-Value="@registrosEpp.F" />
+                    </div>
+                </div>
+                @if (registrosEpp.GA | registrosEpp.CA | registrosEpp.GU | registrosEpp.BS | registrosEpp.CHS | registrosEpp.TO | registrosEpp.TB | registrosEpp.IMP | registrosEpp.EPG | registrosEpp.AMD | registrosEpp.LVV | registrosEpp.AR | registrosEpp.EA | registrosEpp.M | registrosEpp.O | registrosEpp.F == true)
+                {
+
+                }
+                else
+                {
+                    <MudAlert Severity="Severity.Warning">Porfavor seleccione una opcion</MudAlert>
+                }
+                <div class="d-flex flex-column" style="width:100%;">
+
+                    <MudTextField Style="margin:10px;" @bind-Value="@registrosEpp.Otro" Label="Otro" Variant="Variant.Outlined"></MudTextField>
+
+                    <div class="form-group">
+
+                        <InputImg Label="Foto" ImagenSeleccionada="ImagenSeleccionada" ImagenURL="@ImagenURL" />
+
+                    </div>
+                    @*borrado solo aparece cuando esta editando*@
+                    <div>
+                        @if (registrosEpp.Id != 0)
+                        {
+                        <MudRadioGroup T="bool" @bind-SelectedOption="registrosEpp.Isdelete">
+                                <MudRadio Option="false" Color="Color.Success">Guardado</MudRadio>
+                                <MudRadio Option="true" Color="Color.Error">Eliminar</MudRadio>
+                        </MudRadioGroup>
+                        }
+                        @*alerta de eliminar*@
+                        @if(registrosEpp.Isdelete == true)
+                        {
+                        
+                           <MudAlert Icon="@Icons.TwoTone.WarningAmber" Severity="Severity.Error" Dense="true" Style="width:500px;" Class="my-2">Eliminar Seleccionado, Si Guarda El Formato De Permiso Sera Eliminado</MudAlert>     
+                        }
+
+                    </div>
+                </div>
+
+            </div>
+
+            @if (registrosEpp.GA | registrosEpp.CA | registrosEpp.GU | registrosEpp.BS | registrosEpp.CHS | registrosEpp.TO | registrosEpp.TB | registrosEpp.IMP | registrosEpp.EPG | registrosEpp.AMD | registrosEpp.LVV | registrosEpp.AR | registrosEpp.EA | registrosEpp.M | registrosEpp.O | registrosEpp.F == true)
+            {
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" EndIcon="@Icons.Rounded.Save" Color="Color.Success" Style="width:100%; margin-top:20px; margin-bottom:20px;">Guardar</MudButton>
+            }
+            else
+            {
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" EndIcon="@Icons.Rounded.Save" Color="Color.Success" Style="width:100%; margin-top:20px; margin-bottom:20px;" Disabled="true">Guardar</MudButton>
+            }
+        </MudPaper>
+    </div>
+</EditForm>
+
+@code{
+    [Parameter] public FormatoEntregaEpp registrosEpp { get; set; }
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+    private string ImagenURL;
+
+    protected override void OnInitialized()
+    {
+        if (!string.IsNullOrWhiteSpace(registrosEpp.Foto))
+        {
+            ImagenURL = registrosEpp.Foto;
+            registrosEpp.Foto = null;
+        }
+    }
+
+    private void ImagenSeleccionada(string imagenBase64)
+    {
+        registrosEpp.Foto = imagenBase64;
+        ImagenURL = null;
+    }
+}

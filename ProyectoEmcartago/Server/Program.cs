@@ -7,6 +7,12 @@ global using ProyectoEmcartago.Shared.Entidades.Entidad_Ingreso_y_Salida;
 global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_PEDSYP;
+global using ProyectoEmcartago.Server.Almacenador;
+global using ProyectoEmcartago.Shared.Entidades.Entidad_Formato_Entrega_Epp;
+global using AutoMapper;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,6 +21,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IAlmacenadorArchivos, AlmacenadorArchivosLocal>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

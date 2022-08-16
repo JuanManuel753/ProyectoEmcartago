@@ -1,4 +1,5 @@
 ﻿<MudPaper Width="250px" Class="py-3" Elevation="0" Style="background:none;">
+    <MudNavLink Href="" Icon="@Icons.TwoTone.Home" IconColor="Color.Tertiary" Style="color:white;">Incio</MudNavLink>
     <MudNavMenu Dense="true" Color="Color.Dark">
             <MudNavGroup  Title="Formato De Permisos" Expanded="false" Icon="@Icons.TwoTone.DynamicForm" IconColor="Color.Tertiary" Style="color:white;">
                 <MudNavLink  Href="indiceformatodesolicituddepermiso" Icon="@Icons.TwoTone.AdminPanelSettings" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Indice Permisos</MudNavLink>
@@ -26,6 +27,12 @@
         </MudNavGroup>
     </MudNavMenu>
 
+    <MudNavMenu Dense="true" Color="Color.Dark">
+        <MudNavGroup Title="Formato Entrega De EPP" Expanded="false" Icon="@Icons.TwoTone.DynamicForm" IconColor="Color.Tertiary" Style="color:white;">
+            <MudNavLink Href="indiceformatodeentregaepp" Icon="@Icons.TwoTone.AdminPanelSettings" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Indice Formato Epp</MudNavLink>
+            <MudNavLink Href="formatodeepp/crear" Icon="@Icons.TwoTone.PersonAdd" IconColor="Color.Tertiary" Style="color:white;" Match="NavLinkMatch.All">Crear Formato Entrega Epp</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
 </MudPaper>
 @code {
     private bool collapseNavMenu = true;

@@ -17,6 +17,7 @@ global using ProyectoEmcartago.Shared.Entidades.Entidad_Ingreso_y_Salida;
 global using ProyectoEmcartago.Client.Repositorios.RepositorioIngresoySalida;
 global using ProyectoEmcartago.Shared.Entidades.Entidad_PEDSYP;
 global using ProyectoEmcartago.Client.Repositorios.RepositorioPEDSYP;
+global using ProyectoEmcartago.Client.Repositorios.RepositorioFormatoEntregaEpp;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -27,6 +28,7 @@ builder.Services.AddScoped<IRepositorioPermisos, RepositorioPermisos>();
 builder.Services.AddScoped<IRepositorioUsoEpp, RepositorioUsoEpp>();
 builder.Services.AddScoped<IRepositorioIngresoySalida, RepositorioIngresoySalida>();
 builder.Services.AddScoped<IRepositorioPEDSYP, RepositorioPEDSYP>();
+builder.Services.AddScoped<IRepositorioFormatoEntregaEpp, RepositorioFormatoEntregaEpp>();
 builder.Services.AddScoped<IMostrarMensajes, MostrarMensajes>();
 builder.Services.AddMudServices();
 

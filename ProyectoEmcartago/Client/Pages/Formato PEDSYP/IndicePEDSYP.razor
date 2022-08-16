@@ -1,6 +1,7 @@
 ﻿@page "/indicepedsyp"
 @inject IRepositorioPEDSYP repositorio
 @inject NavigationManager navigationManager
+<PageTitle>Indice PEDSYP</PageTitle>
 <ListadoGenerico Listado="Funcionarios">
     <HayRegistrosCompleto>
         <MudTable Items="Funcionarios" Dense="@dense" Hover="@hover" Bordered="@bordered" Filter="new Func<PEDSYP,bool>(FilterFunc1)">

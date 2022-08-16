@@ -1,4 +1,5 @@
-﻿using ProyectoEmcartago.Shared.Entidades.Entidad_PEDSYP;
+﻿using ProyectoEmcartago.Shared.Entidades.Entidad_Formato_Entrega_Epp;
+using ProyectoEmcartago.Shared.Entidades.Entidad_PEDSYP;
 
 namespace ProyectoEmcartago.Server.Data
 {
@@ -26,5 +27,7 @@ namespace ProyectoEmcartago.Server.Data
 
         //Lista Preoperacional equipo de succion y presion
         public DbSet<PEDSYP> PEDSYP { get; set; }
+        //Formato De Entrega Epp
+        public DbSet<FormatoEntregaEpp> formatoEntregaEpp { get; set; }
     }
 }

@@ -1,0 +1,26 @@
+﻿@page "/formatodeepp/crear"
+@inject IRepositorioFormatoEntregaEpp repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensajes
+
+<PageTitle>Crear Formato Entrega Epp</PageTitle>
+
+<MudText Typo="Typo.h3" Style="display:flex; justify-content:center;">Creacion De Formato Entrega Epp</MudText>
+<FormularioFormatoEntregaEpp  OnValidSubmit="Crear" registrosEpp="formatoEntregaEpp"/>
+@code {
+    private FormatoEntregaEpp formatoEntregaEpp = new FormatoEntregaEpp();
+
+    async Task Crear()
+    {
+        var httpResponse = await repositorio.Post("api/FormatoEntregaEpp", formatoEntregaEpp);
+        if (httpResponse.Error)
+        {
+            await mostrarMensajes.MostrarMensajeError("Creacion de Formato de Entrega de Epp Erronea");
+        }
+        else
+        {
+            await mostrarMensajes.MostrarMensajeExitoso("Creacion de Formato de Entrega de Epp Exitosa");
+            navigationManager.NavigateTo("/formatodeepp/crear", true);
+        }
+    }
+}

@@ -1,0 +1,57 @@
+﻿@page "/formatodeepp/editar/{Id:int}"
+@inject IRepositorioFormatoEntregaEpp repositorio
+@inject NavigationManager navigationManager
+@inject IMostrarMensajes mostrarMensajes
+
+<PageTitle>Editar Formato Entrega Epp</PageTitle>
+<MudText Typo="Typo.h6" Style="display:flex; justify-content:center;">Editar Formato Entrega Epp</MudText>
+<h3></h3>
+@if(formatoEntregaEpp == null)
+{
+    <MudProgressLinear Color="Color.Info" Indeterminate="true" Class="my-7" />
+}
+else
+{
+    <FormularioFormatoEntregaEpp registrosEpp="formatoEntregaEpp" OnValidSubmit="Editar"  />
+}
+
+@code {
+    [Parameter] public int Id { get; set; }
+    FormatoEntregaEpp formatoEntregaEpp;
+
+    protected async override Task OnInitializedAsync()
+    {
+        var httpResponse = await repositorio.Get<FormatoEntregaEpp>($"api/FormatoEntregaEpp/{Id}");
+        if(httpResponse.Error)
+        {
+            if (httpResponse.HttpResponseMessage.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                navigationManager.NavigateTo("indiceformatodeentregaepp");
+            }
+            else
+            {
+                await mostrarMensajes.MostrarMensajeError(await httpResponse.GetBody());
+            }
+        }
+        else
+        {
+            formatoEntregaEpp = httpResponse.Response;
+            Console.WriteLine(formatoEntregaEpp.Foto);
+            Console.WriteLine(formatoEntregaEpp.Nombre_Funcionario);
+            
+        }
+    }
+    private async Task Editar()
+    {
+        var httpResponse = await repositorio.Put("api/FormatoEntregaEpp", formatoEntregaEpp);
+        if(httpResponse.Error)
+        {
+            await mostrarMensajes.MostrarMensajeError("Edicion de Formato de entrega Epp Erroneo");
+        }
+        else
+        {
+            await mostrarMensajes.MostrarMensajeExitoso("Edicion de Formato de entrega Epp Exitoso");
+            navigationManager.NavigateTo("indiceformatodeentregaepp");
+        }
+    }
+}

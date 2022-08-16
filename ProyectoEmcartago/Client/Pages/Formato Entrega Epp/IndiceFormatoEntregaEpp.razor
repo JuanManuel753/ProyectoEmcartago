@@ -1,0 +1,100 @@
+﻿@page "/indiceformatodeentregaepp"
+@inject IRepositorioFormatoEntregaEpp repositorio
+@inject NavigationManager navigationManager
+
+
+<PageTitle>Indice Formato Entrega Epp</PageTitle>
+<ListadoGenerico Listado="formatoEntregaEpp">
+    <HayRegistrosCompleto>
+        <MudTable Items="@formatoEntregaEpp" Dense="@dense" Hover="@hover" Bordered="@bordered" Filter="new Func<FormatoEntregaEpp,bool>(FilterFunc1)">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Formato Entrega De EPP</MudText>
+                <MudButton Disabled="@_processing" Style="margin-left:30px;" Variant="Variant.Filled" Color="Color.Success" Size="Size.Large" EndIcon="@Icons.TwoTone.AddCircle" @onclick="CrearFormato">
+                    @if (_processing)
+                    {
+                        <MudProgressCircular Class="ms-n1" Size="Size.Medium" Indeterminate="true" />
+                        <MudText Class="ms-2">Reedirigiendo</MudText>
+                    }
+                    else
+                    {
+                        <MudText>Nuevo Permiso</MudText>
+                    }
+                </MudButton>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Oficina --- Nombre de funcionario --- Cedula" Adornment="Adornment.Start" AdornmentIcon="@Icons.TwoTone.PersonSearch" AdornmentColor="Color.Primary" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh></MudTh>
+                <MudTh>Id</MudTh>
+                <MudTh>Nombre del funcionario</MudTh>
+                <MudTh>Fecha</MudTh>
+                <MudTh>Cedula</MudTh>
+                <MudTh>Cargo</MudTh>
+                <MudTh>Oficina</MudTh>
+                <MudTh>Cantidad</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <MudIconButton @onclick="(() => IrEditar(context.Id))" Icon="@Icons.Rounded.Edit" Color="Color.Primary" />
+                </MudTd>
+                <MudTd DataLabel="Id">@context.Id</MudTd>
+                <MudTd DataLabel="Nombre del funcionario">@context.Nombre_Funcionario</MudTd>
+                <MudTd DataLabel="Fecha">@context.Fecha_Registro</MudTd>
+                <MudTd DataLabel="Cedula">@context.Cedula</MudTd>
+                <MudTd DataLabel="Cargo">@context.Cargo</MudTd>
+                <MudTd DataLabel="Oficina">@context.Oficina</MudTd>
+                <MudTd DataLabel="Cantidad">@context.Cantidad</MudTd>
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager Style="display: flex; flex-wrap: wrap;justify-content:center; text-align:center;" PageSizeOptions="new int[] {15,25,50,75,100,150,200}" RowsPerPageString="Paginacion" InfoFormat="{first_item}-{last_item} Total: {all_items}" />
+            </PagerContent>
+        </MudTable>
+    </HayRegistrosCompleto>
+</ListadoGenerico>
+@code {
+    public List<FormatoEntregaEpp> formatoEntregaEpp { get; set; }
+    private bool _processing = false;
+    protected async override Task OnInitializedAsync()
+    {
+        await Cargar();
+    }
+    private async Task Cargar()
+    {
+        var responseHttp = await repositorio.Get<List<FormatoEntregaEpp>>("api/FormatoEntregaEpp");
+        formatoEntregaEpp = responseHttp.Response;
+    }
+
+
+    private void IrEditar(int id)
+    {
+        navigationManager.NavigateTo($"/formatodeepp/editar/{id}");
+    }
+
+    async void CrearFormato()
+    {
+        _processing = true;
+        await Task.Delay(1000);
+        _processing = false;
+        navigationManager.NavigateTo("formatodeepp/crear");
+    }
+
+    public bool dense = true;
+    public bool hover = false;
+    public bool striped = true;
+    public bool bordered = true;
+
+    private string searchString1 = "";
+    private bool FilterFunc1(FormatoEntregaEpp element) => FilterFunc(element, searchString1);
+    private bool FilterFunc(FormatoEntregaEpp element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Nombre_Funcionario.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if ($"{element.Cedula} {element.Nombre_Funcionario}".Contains(searchString))
+            return true;
+        return false;
+    }
+}

@@ -1,5 +1,82 @@
 ﻿@page "/"
-<h3>Index</h3>
+<MudPaper Elevation="0" Class="py-6" Style="width:1096px;  padding-left:100px; padding-right:100px;">
+    @*Indices De formularios*@
+    <div style=" margin-bottom:15px; display:flex; flex-direction:row">
+        <div style="margin-right: 3%;">
+        <a href="indiceusoepp">
+            <MudIcon Icon="@Icons.TwoTone.Home"  Color="Color.Tertiary"  style="width: 125px; height:100px;" />
+            <MudText Style=" margin-left:15px; font-size: 15px; font-weight: bold; " Typo="Typo.h1">Indice Uso Epp</MudText>
+        </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+        <a href="indiceingresoysalidacomputo">
+            <MudIcon Icon="@Icons.TwoTone.Home" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+            <MudText Style="margin-left:6px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Indice E\S Computo</MudText>
+        </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+        <a href="indicepedsyp">
+            <MudIcon Icon="@Icons.TwoTone.Home" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+            <MudText Style="margin-left:13px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Indice PEDSYP</MudText>
+        </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+            <a href="indiceformatodeentregaepp">
+                <MudIcon Icon="@Icons.TwoTone.Home" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style="margin-left:6px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Indice Entrega Epp</MudText>
+            </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+            <a href="indiceformatodesolicituddepermiso">
+                <MudIcon Icon="@Icons.TwoTone.Home" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style=" font-size: 15px; font-weight: bold;" Typo="Typo.h1">Indice Solicitud Permiso</MudText>
+            </a>
+        </div>
+    </div>
+
+    @*Parte de abajo Creacion*@
+    <div style=" display:flex; flex-direction:row">
+        <div style="margin-right: 3%;">
+            <a href="usoepp/crear">
+                <MudIcon Icon="@Icons.TwoTone.Add" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style="margin-left:15px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Crear Uso Epp</MudText>
+            </a>
+        </div>
+
+    <div style="margin-right: 3%;">
+        <a href="ingresoysalidacomputo/crear">
+                <MudIcon Icon="@Icons.TwoTone.Add" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style=" margin-left:6px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Crear E\S Computo</MudText>
+            </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+            <a href="pedsyp/crear">
+                <MudIcon Icon="@Icons.TwoTone.Add" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style=" margin-left:13px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Crear PEDSYP</MudText>
+            </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+            <a href="formatodeepp/crear">
+                <MudIcon Icon="@Icons.TwoTone.Add" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style=" margin-left:6px; font-size: 15px; font-weight: bold;" Typo="Typo.h1">Crear Entrega Epp</MudText>
+            </a>
+        </div>
+
+        <div style="margin-right: 3%;">
+            <a href="formatodesolicituddepermiso/crear">
+                <MudIcon Icon="@Icons.TwoTone.Add" Color="Color.Tertiary" style="width: 125px; height:100px;" />
+                <MudText Style=" font-size: 15px; font-weight: bold;" Typo="Typo.h1">Crear Solicitud Permiso</MudText>
+            </a>
+        </div>
+    </div>
+</MudPaper>
+
 
 @code {
 
